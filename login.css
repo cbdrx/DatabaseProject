@@ -1,9 +1,0 @@
-.roundGrayLoginBox{
-    height:150px;
-    width:300px;
-    border: 1px solid black;
-    margin: auto;
-    background-color: #B8B8B8;
-    border-radius:10px;
-    box-shadow: 10px 10px 10px #666;
-}
