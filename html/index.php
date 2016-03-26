@@ -1,25 +1,52 @@
 <!DOCTYPE html>
-<link href="style/login.css" type="text/css" rel="stylesheet">
-<link href="style/base.css" type="text/css" rel="stylesheet">
+<link href="css/bootstrap.css" type="text/css" rel="stylesheet">
+<script src="js/jquery-1.12.2.min.js"></script>
     
 <html>
     <head>
         <title>460DB - LOGIN</title>
     </head>
-    <body style="background-color:#EEE">
-        <div class="flex vertCenter horiCenter pageContent">
-            <div>
-                <div class="roundGrayLoginBox">
-        <h2 class="centerHori login_header">Welcome!</h2>
-        <div class="centerHori">
-        User: <input id="username" type="text"></br>
-        Pass: <input id="password" type="password"></br>
-        <a href="home.html"><button id="submit" type="button"> Login </button></a>
+    <body class="container">
+        <!--<div class="jumbotron">-->
+            <h1>KaChing</h1>
+            <div class="row">
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+                <div class="col-sm-1">
+                    <h5>Home</h5>
+                    </div>
+            <!--</div>-->
         </div>
-                </div>
-            </div>
-        </div>
-        </hr>
-        <div style="text-align:center"><?php date(M-D-Y); ?> </div>
     </body>
 </html>
