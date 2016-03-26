@@ -2,7 +2,7 @@
     
 <html>
 
-    <?php include 'navbar.html';?>
+    <?php include 'navbar.php';?>
 
     <body style="background-color:#EEE">
         <ul>
