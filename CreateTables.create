@@ -1,0 +1,79 @@
+CREATE TABLE user(
+    CLID VARCHAR(7) NOT NULL,
+    password VARCHAR(32) NOT NULL,
+    fullName VARCHAR(255) NOT NULL,
+    superUser TINYINT(1) NOT NULL DEFAULT 0,
+    primary key (CLID)
+);
+
+create table savingsAccount(
+    accountNumber bigint(16) not null,
+    balance float(16,2) not null default 0.00,
+    FK_user varchar(7) not null,
+    Primary Key (accountNumber),
+    Foreign Key (FK_user) References user (CLID) On delete cascade
+);
+
+create table checkingAccount(
+    accountNumber bigint(16) not null,
+    balance float(16,2) not null default 0.00,
+    FK_user varchar(7) not null,
+    Primary Key (accountNumber),
+    Foreign Key (FK_user) References user (CLID) On delete cascade
+);
+
+create table business(
+    name varchar(255) not null,
+    Primary Key (Name)
+);
+
+create table category(
+    name varchar(255) not null,
+    goal float(16, 2) not null default 0.00,
+    isDefault tinyint(1) not null default 0,
+    FK_createdBy varchar(7) not null,
+    FK_parentName varchar(255) not null,
+    FK_parentCLID varchar(7) not null,
+    primary key (name, FK_createdBy),
+    Foreign Key (FK_createdBy) References user (CLID) On delete cascade,
+    Foreign Key (FK_parentName) References category (name) On delete cascade,
+    Foreign Key (FK_parentCLID) References user (CLID) On delete cascade
+);
+
+
+create table incomeTransaction(
+    id bigint(20) not null auto_increment,
+    amount float (16, 2) not null,
+    date date not null,
+    FK_user varchar(7) not null,
+    FK_category  varchar(255) not null,
+    primary key (id, FK_user, FK_category),
+    Foreign Key (FK_user) References user (CLID) On delete cascade,
+    Foreign Key (FK_category) References category (name) On delete cascade
+);
+    
+create table expenseTransaction(
+    id bigint(20) not null auto_increment,
+    amount float (16, 2) not null,
+    date date not null,
+    FK_user varchar(7) not null,
+    FK_category varchar(255) not null,
+    FK_business varchar(255) not null,
+    FK_accountNumber bigint(16) not null,
+    primary key (id, FK_accountNumber, FK_business, FK_category),
+    Foreign Key (FK_user) References user (CLID) On delete cascade,
+    Foreign Key ( FK_category) References category (name) On delete cascade,
+    Foreign Key (FK_business) References business (name) On delete cascade,
+    Foreign Key (FK_accountNumber) References checkingAccount (accountNumber) On delete cascade
+);
+
+create table userBusinessCategory(
+    FK_business varchar(255) not null,
+    FK_user varchar(7) not null,
+    FK_category varchar(255) not null,
+    primary key (FK_business, FK_user, FK_category),
+    Foreign Key (FK_business) References business (name) On delete cascade,
+    Foreign Key (FK_user) References user (CLID) On delete cascade,
+    Foreign Key (FK_category) References category (name) On delete cascade
+);
+
