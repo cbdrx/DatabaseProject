@@ -2,11 +2,11 @@
     function ConnectToDB()
     {
         $servername = "localhost";
-        $username = "student";
+        $username = "root";
         $password = "student";
 
         // Create connection
-        $conn = new mysql($servername, $username, $password);
+        $conn = new mysqli($servername, $username, $password);
 
         // Check connection
         if ($conn->connect_error) {
