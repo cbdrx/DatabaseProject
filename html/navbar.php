@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
+<?php
+    echo
+    '<head>
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
         <link href="css/base.css" type="text/css" rel="stylesheet">
         <script src="js/jquery-1.12.2.min.js"></script>
@@ -32,6 +32,5 @@
             </li>   
         </div>
         </ul>
-    </div>
-    
-</html>
+    </div>'
+;?>
