@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<link href="css/bootstrap.css" type="text/css" rel="stylesheet">
-<script src="js/jquery-1.12.2.min.js"></script>
     
 <html>
-    <head>
-        <title>460DB - Home</title>
-    </head>
+
+    <?php include 'navbar.html';?>
+
     <body style="background-color:#EEE">
         <ul>
         <li>Content1</li>
