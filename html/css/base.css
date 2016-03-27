@@ -1,4 +1,12 @@
 body {
-    background: slategrey;
+    background-color: slategrey;
     color: black;
+}
+
+.tableWrapper {
+    border: black;
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 25px;
+    background: rebeccapurple;
 }
