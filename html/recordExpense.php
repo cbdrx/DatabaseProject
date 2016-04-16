@@ -28,11 +28,12 @@
         $result = $conn->query($querystring);
         $currentTuple = $result->fetch_row();
         $accountNumber = $currentTuple[0];
-        echo $accountNumber;
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
-        
-        $conn->query($query_string);
+
+	echo $querystring;        
+
+        $conn->query($querystring);
         
         header("Location: index.php");
     }
