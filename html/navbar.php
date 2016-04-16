@@ -40,12 +40,10 @@
             </li>
             <li>
                 <a href="recordExpense.php"> New Expense </a>
-            // </li> 
-            //. 
-            // 
-            // $savingsString .
-            // 
-            
+            </li> 
+			<li>
+				<a href=#>Trans/Savings Goes Here</a>
+			</li>
             <li>
                 <a href="Checks.php"> Checks </a>
             </li>  
