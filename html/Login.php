@@ -6,7 +6,6 @@
   <script src="js/jquery-1.12.2.min.js"></script>
 
   <title>Log In </title>
-  <?php include 'navbar.php';?>
 
   <div class="container">
     <div class="row" style="height:33vh">

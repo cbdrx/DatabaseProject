@@ -2,13 +2,12 @@
 
 function isUserLoggedIn()
 {
-   if($_SESSION["loggedInUser"]) return;
+   if($_SESSION["loggedInUser"] != '') return;
    else
    {
        header("Location: Login.php");
+       exit();
        return;
    };
 }
-
-[4:28] 
 ?>
