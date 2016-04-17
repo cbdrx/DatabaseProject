@@ -120,7 +120,7 @@
                 <a href="#"> All Savings Accounts </a>
             </li>
             <li>
-                <a href="#"> Create New SU Account </a>
+                <a href="suCreateNewUser.php"> Create New Account </a>
             </li>
              ';
     
