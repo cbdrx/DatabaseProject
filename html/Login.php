@@ -7,6 +7,26 @@
 
   <title>Log In </title>
 
+  <?php
+    $username = $_POST["name"];
+    $password = $_POST["password"];
+    
+    include 'php/Queries.php'; ConnectToDB();
+    $querystring = "select * from user where CLID = " . $username . "and password = " . $password . ";";
+    
+    $result = conn->query($querystring);
+    
+    if ($result->num_rows() > 0) {
+        $_SESSION["loggedInUser"] = $username;
+        $_SESSION["errorMessage"] = "";
+        header("Location: index.php");
+    }
+    else {
+        $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+        header("Location: Login.php");
+    }
+  ?>
+
   <div class="container">
     <div class="row" style="height:33vh">
       <div class="col-sm-3">
@@ -21,18 +41,20 @@
             </div>
         <div class="col-sm-8">
             <div class="roundGrayLoginBox">
-                <form>
-                    <div class="row" style="height:2vh">
-                        </div>
+                <form action="Login.php" method="post">
+                    <div class="row" style="height:2vh"></div>
+                    <div class="row">
+                        <?php echo $_SESSION["errorMessage"] ?>
+                    </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">CLID:</div>
-                        <div class="col-sm-6" style="padding:1px"><input type="clid"></div>
+                        <div class="col-sm-6" style="padding:1px"><input type="text" name="clid" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">Password: </div>
-                        <div class="col-sm-6" style="padding:1px"><input type="password"></div>
+                        <div class="col-sm-6" style="padding:1px"><input type="text" name="password" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
@@ -43,7 +65,6 @@
             </div>
         </div>
     </div>
-    
 </div>
 
 
