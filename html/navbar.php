@@ -1,4 +1,4 @@
-<?php require loginCheck; isUserLoggedIn(); ?>
+<?php require CheckUser; isUserLoggedIn(); ?>
 
 <?php
 
