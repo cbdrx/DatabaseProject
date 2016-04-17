@@ -1,3 +1,5 @@
+<?php require CheckUser; isUserLoggedIn(); ?>
+
 <!DOCTYPE html>
     
 <html>
