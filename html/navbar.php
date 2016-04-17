@@ -96,28 +96,28 @@
     </head>
     
     <div class="navbar navbar-inverse affix-top" data-spy="affix" data-offset-top="0">
-        <a class="navbar-header" href="index.php"> 
+        <a class="navbar-header" href="superHome.php"> 
             <div class="navbar-brand">$Kaching</div> 
         </a>
         <div class="nav navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
             <li>
-                <a href="#"> All Businesses </a>
+                <a href="suBusinesses.php"> All Businesses </a>
             </li>
             <li>
-                <a href="#"> All Categories </a>
+                <a href="SuCategories.php"> All Categories </a>
             </li>
             <li>
-                <a href="#"> All Expenses </a>
+                <a href="SuExpenses.php"> All Expenses </a>
             </li>
             <li>
-                <a href="#"> All Incomes </a>
+                <a href="SuIncomes.php"> All Incomes </a>
             </li>
             <li>
-                <a href="#"> All Checking Accounts </a>
+                <a href="SuCheckingAccounts.php"> All Checking Accounts </a>
             </li>
             <li>
-                <a href="#"> All Savings Accounts </a>
+                <a href="SuSavingsAccounts.php"> All Savings Accounts </a>
             </li>
             <li>
                 <a href="suCreateNewUser.php"> Create New Account </a>
@@ -130,7 +130,7 @@
     if(isset($_SESSION["su"]) && $_SESSION["su"] == true && !isset($_SESSION["loggedInUser"]))
     {
         $chosenBar = $suBar;
-        $LogOutString = 
+        $LogOutString .= 
         '<li>
             <a href="superHome.php"> Back To SU Page</a>
         </li>';
@@ -138,7 +138,7 @@
     else if(isset($_SESSION["su"]) && $_SESSION["su"] == true)
     {
         $chosenBar = $normalUserBar;
-        $LogOutString = 
+        $LogOutString .= 
         '<li>
             <a href="superHome.php"> Back To SU Page</a>
         </li>';

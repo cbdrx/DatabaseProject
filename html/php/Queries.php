@@ -268,5 +268,77 @@
 		return $result;
 	}
     
-    
+    function SuBusinessPage()
+	{
+		$conn = ConnectToDB();
+		$query = "
+				select ubc.FK_business Business, c.name Category, count(ubc.FK_user) 'Num Users'
+				from userBusinessCategory ubc
+				inner join category c on c.id = ubc.FK_category
+				group by ubc.FK_business, c.name
+				order by Business, Category, 'Num Users';
+		";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function SuCategories()
+	{
+		$conn = ConnectToDB();
+		$query = "(select c1.FK_createdBy User, c1.id ID, c2.name MetaCategory, c1.name Name, c1.income 'Is Income', c1.goal Goal " .
+            " from category as c1, category as c2" .
+			" where c1.FK_createdBy = c2.FK_createdBy " .
+            " and c1.FK_parentID = c2.id " .
+            " order by c2.name, c1.name)
+            UNION
+            (select c1.FK_createdBy User, c1.id ID, 'Top-Level Category', c1.name Name, c1.income 'Is Income', c1.goal Goal 
+                from category as c1
+            where c1.FK_parentID is null
+             order by c1.name)
+            ;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function SuExpenses()
+	{
+		$conn = ConnectToDB();
+		$query = "select * from expenseTransaction
+				order by FK_user, date;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function SuIncomes()
+	{
+		$conn = ConnectToDB();
+		$query = "select * from incomeTransaction
+				order by FK_user, date;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function SuCheckingAccounts()
+	{
+		$conn = ConnectToDB();
+		$query = "select * from checkingAccount
+				order by FK_user;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function SuSavingsAccounts()
+	{
+		$conn = ConnectToDB();
+		$query = "select * from savingsAccount
+				order by FK_user;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
 ?>

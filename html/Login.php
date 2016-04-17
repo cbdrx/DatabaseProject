@@ -18,7 +18,7 @@
         
         include 'php/Queries.php';
         $conn =  ConnectToDB();
-        $querystring = "select * from user where CLID = '$username' and password = '$password';";
+        $querystring = "select * from user where binary CLID = '$username' and binary password = '$password';";
         $result = $conn->query($querystring);
         $numRows = $result->num_rows;
         $conn->close();
@@ -66,7 +66,7 @@
                 <form action="Login.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
-                        <?php //echo $_SESSION["errorMessage"] ?>
+                        <?php echo $_SESSION["errorMessage"] ?>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
