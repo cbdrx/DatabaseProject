@@ -8,6 +8,8 @@
   <title>Log In </title>
 
   <?php
+  function login()
+  {
     $username = $_POST["name"];
     $password = $_POST["password"];
     
@@ -25,6 +27,11 @@
         $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
         header("Location: Login.php");
     }
+  }
+  if (isset($_POST['submit']))
+  {
+      login();
+  }
   ?>
 
   <div class="container">
@@ -58,7 +65,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-6"><input type="submit" value="Submit"/></div>
+                        <div class="col-sm-6"><input type="submit" value="click" name="submit"/></div>
                     </div>
                 </form>
                 </div> 
