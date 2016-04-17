@@ -5,7 +5,7 @@ function isUserLoggedIn()
    if($_SESSION["loggedInUser"]) return;
    else
    {
-       header("Location: login.php");
+       header("Location: Login.php");
        return;
    };
 }
