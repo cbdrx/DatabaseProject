@@ -57,7 +57,13 @@
                     <table id="allExpenseTable" class="table table-striped">  
                     <thead>  
                     <tr>  
-                        /* For each header do this */ <th> /* Header */ </th>  
+                        /* For each header do this */ 
+                        <th> ID </th>
+                        <th> Amount </th>
+                        <th> Date </th>
+                        <th> Category </th>
+                        <th> Business </th>
+                        <th> Account Number </th>  
                     </tr>  
                     </thead>  
                     <tbody> 

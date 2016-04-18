@@ -23,7 +23,7 @@
         
         $conn = ConnectToDB(); //this will throw an exception if it fails
         
-        $results = $conn->query("select clid from user where clid = " . $username . " and password = " . $password . ";");
+        $results = $conn->query("select clid from user where clid = ' $username' and password = '$password';");
         if($results->num_rows > 0) //if there was a match
         {
             $conn->close();
@@ -37,7 +37,7 @@
     {
         $conn = ConnectToDB();
         
-        $query = "select * from incomeTransaction where FK_user = " . $username . " order by date desc;";
+        $query = "select * from incomeTransaction where FK_user = '$username' order by date desc;";
         
         $results = $conn->query($query);
         $conn->close();
@@ -47,7 +47,7 @@
     function ExpenseTransactionForUser($username)
     {
         $conn = ConnectToDB();
-        $query = "select * from expenseTransaction where FK_user = " . $username . " order by date desc;";
+        $query = "select * from expenseTransaction where FK_user = '$username' order by date desc;";
         
         $results = $conn->query($query);
         $conn->close();
