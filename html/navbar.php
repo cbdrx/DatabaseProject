@@ -1,4 +1,5 @@
 <?php
+
     echo
     '<head>
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet">

@@ -58,7 +58,7 @@
     {
         $conn = ConnectToDB();
         $query = "select c.name, c.income, SUM(e.amount), c.goal" . 
-            "from 
+            "from category as c, expenseReport as e" .
             "where FK_user = " . $username . " order by date desc;";
         
         $results = $conn->query($query);

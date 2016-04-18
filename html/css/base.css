@@ -1,4 +1,39 @@
 body {
-    background: slategrey;
+    background-color: slategrey;
     color: black;
+}
+
+.tableWrapper {
+    border: black;
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 25px;
+    background: rebeccapurple;
+    color: white;
+}
+
+.areaHeader {
+    border-bottom: solid;
+    border-bottom-color: black;
+    border-bottom-width: 5px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.vparent {
+  position: relative;
+}
+
+.vchild {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.col-center{
+  margin:0 auto;
 }
