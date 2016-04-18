@@ -31,6 +31,9 @@
             <li>
                 <a href=#> Modify Businesses </a>
             </li>   
+             <li>
+                <a href="Login.php"> Logout </a>
+            </li>  
         </div>
         </ul>
     </div>'

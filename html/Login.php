@@ -11,6 +11,7 @@
   function login()
   {
     session_start();
+    session_destroy();
     $username = $_POST["clid"];
     $password = $_POST["password"];
     
