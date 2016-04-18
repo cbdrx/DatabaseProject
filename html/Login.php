@@ -10,15 +10,16 @@
   <?php
   function login()
   {
-    $username = $_POST["name"];
+    session_start();
+    $username = $_POST["clid"];
     $password = $_POST["password"];
     
-    include 'php/Queries.php'; ConnectToDB();
-    $querystring = "select * from user where CLID = " . $username . "and password = " . $password . ";";
-    
-    $result = conn->query($querystring);
-    
-    if ($result->num_rows() > 0) {
+    include 'php/Queries.php';
+    $conn =  ConnectToDB();
+    $querystring = "select * from user where CLID = '$username' and password = '$password';";
+    $result = $conn->query($querystring);
+    $numRows = $result->num_rows;
+    if ($numRows > 0) {
         $_SESSION["loggedInUser"] = $username;
         $_SESSION["errorMessage"] = "";
         header("Location: index.php");
@@ -30,6 +31,7 @@
   }
   if (isset($_POST['submit']))
   {
+      echo 'Here';
       login();
   }
   ?>
@@ -51,7 +53,7 @@
                 <form action="Login.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
-                        <?php echo $_SESSION["errorMessage"] ?>
+                        <!--<?php echo $_SESSION["errorMessage"] ?>-->
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>

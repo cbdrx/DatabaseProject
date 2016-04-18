@@ -1,4 +1,4 @@
-<?php require 'php/CheckUser.php'; isUserLoggedIn(); ?>
+<?php session_start(); require 'php/CheckUser.php'; isUserLoggedIn(); ?>
 
 <!DOCTYPE html>
     

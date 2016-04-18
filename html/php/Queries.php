@@ -7,9 +7,10 @@
         $servername = "localhost";
         $username = "root";
         $password = "student";
+        $dbName = "KachingDB";
 
         // Create connection
-        $conn = new mysqli($servername, $username, $password);
+        $conn = new mysqli($servername, $username, $password, $dbName);
 
         // Check connection
         if ($conn->connect_error) {
