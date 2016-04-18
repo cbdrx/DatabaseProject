@@ -8,10 +8,11 @@
   <title>Log In </title>
 
   <?php
+  session_start();
+  session_destroy();
   function login()
   {
     session_start();
-    session_destroy();
     $username = $_POST["clid"];
     $password = $_POST["password"];
     
@@ -54,7 +55,7 @@
                 <form action="Login.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
-                        <!--<?php echo $_SESSION["errorMessage"] ?>-->
+                        <?php echo $_SESSION["errorMessage"] ?>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
