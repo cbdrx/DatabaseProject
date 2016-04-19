@@ -8,9 +8,9 @@
     </head>
     
     <div class="navbar navbar-inverse affix-top" data-spy="affix" data-offset-top="0">
-        <div class="navbar-header" href=#> 
+        <a class="navbar-header" href="index.php"> 
             <div class="navbar-brand">$Kaching</div> 
-        </div>
+        </a>
         <div class="nav navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
             <li> 
@@ -26,10 +26,10 @@
                 <a href=#> Checks </a>
             </li>  
             <li>
-                <a href=#> Modify Categories / Goals </a>
+                <a href="categories.php"> Modify Categories / Goals </a>
             </li>    
             <li>
-                <a href=#> Modify Businesses </a>
+                <a href="businesses.php"> Modify Businesses </a>
             </li>   
              <li>
                 <a href="Login.php"> Logout </a>

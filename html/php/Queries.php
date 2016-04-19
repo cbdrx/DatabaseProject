@@ -70,7 +70,42 @@
         
     }
     
+    function AllCategoriesForUser($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_parentName MetaCategory, name Name, income 'Is Income', goal Goal " .
+            " from category " .
+            " where FK_createdBy = '$username' " .
+            " order by FK_parentName, name;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
     
+    function PossibleParentCategories($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_parentName MetaCategory, name Name " .
+            " from category " .
+            " where FK_createdBy = '$username' " .
+            " and  FK_parentName = 'Default' " .
+            " order by FK_parentName, name;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
+    
+    function AllBusinessesForUser($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_business Business, FK_category Category " .
+            " from userBusinessCategory " .
+            " where FK_user = '$username' " .
+            " order by FK_business, FK_category;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
     
     
 ?>
