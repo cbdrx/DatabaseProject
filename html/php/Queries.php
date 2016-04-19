@@ -44,7 +44,7 @@
         return $results;
     }
     
-    function ExpenseTransactionForUser($username)
+    function ExpenseTransactionsForUser($username)
     {
         $conn = ConnectToDB();
         $query = "select * from expenseTransaction where FK_user = '$username' order by date desc;";
@@ -57,9 +57,12 @@
     function CategoryTableRowsForUser($username)
     {
         $conn = ConnectToDB();
-        $query = "select c.name, c.income, SUM(e.amount), c.goal" . 
-            "from category as c, expenseReport as e" .
-            "where FK_user = " . $username . " order by date desc;";
+        $query = ("select c.FK_parentName, c.name, c.goal, SUM(e.amount)" . 
+            " from category as c, expenseTransaction as e " .
+            " where c.FK_createdBy = '$username'" .
+            " and  e.FK_user = '$username'" .
+            " and e.FK_category = c.name" .
+            " group by c.FK_parentName, c.name, c.goal");
         
         $results = $conn->query($query);
         $conn->close();
@@ -67,7 +70,42 @@
         
     }
     
+    function AllCategoriesForUser($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_parentName MetaCategory, name Name, income 'Is Income', goal Goal " .
+            " from category " .
+            " where FK_createdBy = '$username' " .
+            " order by FK_parentName, name;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
     
+    function PossibleParentCategories($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_parentName MetaCategory, name Name " .
+            " from category " .
+            " where FK_createdBy = '$username' " .
+            " and  FK_parentName = 'Default' " .
+            " order by FK_parentName, name;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
+    
+    function AllBusinessesForUser($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select FK_business Business, FK_category Category " .
+            " from userBusinessCategory " .
+            " where FK_user = '$username' " .
+            " order by FK_business, FK_category;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
     
     
 ?>

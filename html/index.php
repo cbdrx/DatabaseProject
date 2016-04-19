@@ -1,4 +1,6 @@
 <?php session_start(); require 'php/CheckUser.php'; isUserLoggedIn(); ?>
+<?php require 'php/Tables.php'; ?>
+<?php require 'php/Queries.php'; ConnectToDB(); ?>
 
 <!DOCTYPE html>
     
@@ -11,7 +13,7 @@
     <title> Home </title>
 
     <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
+    
     
     <link href="css/datatables.min.css" type="text/css" rel="stylesheet">
     <script src="js/datatables.min.js"></script>
@@ -28,17 +30,9 @@
                 <div class="col-sm-1"> </div>
                 <div class="col-sm-10 tableWrapper" id="allIncome">
                     <table id="allIncomeTable" class="table table-striped">  
-                    <thead>  
-                    <tr>  
-                        /* For each header do this */ <th> /* Header */ </th>  
-                    </tr>  
-                    </thead>  
-                    <tbody> 
-                    /* For each row in the result */   
-                    <tr>  
-                        /* For each column in this row */<td> /* Data */ </td>  
-                    </tr>  
-                    </tbody>  
+                    <?php
+                        echo BuildTable(IncomeTransactionsForUser($_SESSION["loggedInUser"]));
+                    ?>
                     </table>  
                 </div>
                 <div class="col-sm-1"> </div>
@@ -55,17 +49,9 @@
                 <div class="col-sm-1"> </div>
                 <div class="col-sm-10 tableWrapper" id="allExpenses">
                     <table id="allExpensesTable" class="table table-striped">  
-                    <thead>  
-                    <tr>  
-                        /* For each header do this */ <th> /* Header */ </th>  
-                    </tr>  
-                    </thead>  
-                    <tbody> 
-                    /* For each row in the result */   
-                    <tr>  
-                        /* For each column in this row */<td> /* Data */ </td>  
-                    </tr>  
-                    </tbody>  
+                    <?php
+                        echo BuildTable(ExpenseTransactionsForUser($_SESSION["loggedInUser"]));
+                    ?>
                     </table>  
                 </div>
                 <div class="col-sm-1"> </div>
@@ -82,17 +68,9 @@
                     <div class="col-sm-1"> </div>
                     <div class="col-sm-10 tableWrapper">
                         <table id="categoriesTable" class="table table-striped">  
-                        <thead>  
-                        <tr>  
-                            /* For each header do this */ <th> /* Header */ </th>  
-                        </tr>  
-                        </thead>  
-                        <tbody> 
-                        /* For each row in the result */   
-                        <tr>  
-                            /* For each column in this row */<td> /* Data */ </td>  
-                        </tr>  
-                        </tbody>  
+                        <?php
+                            echo BuildTable(CategoryTableRowsForUser($_SESSION["loggedInUser"]));
+                        ?>
                         </table>  
                     </div>
                     <div class="col-sm-1"> </div>
@@ -104,7 +82,7 @@
     <script>
         $(document).ready(function () {
             $('#allIncomeTable').dataTable();
-            $('#allExpenseTable').dataTable();
+            $('#allExpensesTable').dataTable();
             $('#categoriesTable').dataTable();
         });
     </script>
