@@ -44,7 +44,7 @@
         return $results;
     }
     
-    function ExpenseTransactionForUser($username)
+    function ExpenseTransactionsForUser($username)
     {
         $conn = ConnectToDB();
         $query = "select * from expenseTransaction where FK_user = '$username' order by date desc;";
@@ -57,9 +57,12 @@
     function CategoryTableRowsForUser($username)
     {
         $conn = ConnectToDB();
-        $query = "select c.name, c.income, SUM(e.amount), c.goal" . 
-            "from category as c, expenseReport as e" .
-            "where FK_user = " . $username . " order by date desc;";
+        $query = ("select c.FK_parentName, c.name, c.goal, SUM(e.amount)" . 
+            " from category as c, expenseTransaction as e " .
+            " where c.FK_createdBy = '$username'" .
+            " and  e.FK_user = '$username'" .
+            " and e.FK_category = c.name" .
+            " group by c.FK_parentName, c.name, c.goal");
         
         $results = $conn->query($query);
         $conn->close();
