@@ -7,8 +7,53 @@
   <script src="js/jquery-1.12.2.min.js"></script>
 
   <title> Create Account </title>
-  <?php include 'navbar.php';?>
 
+  <?php
+    session_start();
+    session_destroy();
+    function createAccount()
+    {
+        session_start();
+        $username = $_POST["clid"];
+        $name = $_POST["name"];
+        $password = $_POST["password"];
+        $checkingnum = $_POST["checkingaccountnumber"];
+        $checkingbalance = $_POST["checkingaccountbalance"];
+        $savingsnum = $_POST["savingsaccountnumber"];
+        $savingsbalance = $_POST["savingsaccountbalance"];
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        $querystring = "insert into user values ('$username', '$password', '$name', 0);";
+        $result = $conn->query($querystring);
+        $querystring = "insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');"
+        $result = $conn->query($querystring);
+        if (isset($_POST["savingsaccountnumber"];))
+        {
+            if (isset($_POST["savingsaccountbalance"]))
+                $querystring = "insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');"
+            else
+                $querystring = "insert into savingsAccount values('$savingsnum', 0.00, '$username');"
+            $result = $conn->query($querystring);
+        }
+            
+        //Do a check for success here? each time? idk.
+        if ($numRows > 0) {
+            $_SESSION["loggedInUser"] = $username;
+            $_SESSION["errorMessage"] = "";
+            header("Location: index.php");
+        }
+        else {
+            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+            header("Location: Login.php");
+        }
+    }
+    if (isset($_POST['submit']))
+    {
+        echo 'Here';
+        createAccount();
+    }
+  ?>
 
   <div class="container">
     <div class="row" style="height:33vh">
@@ -25,7 +70,7 @@
       </div>
 
       <div class="col-sm-8">
-          <form>
+          <form action="createAccount.php" method="post">
             <div class="roundGrayAccountCreateBox" style="padding-top:15px">
               <div class="row">
                 <div class="col-sm-1"></div>
