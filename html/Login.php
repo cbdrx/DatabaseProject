@@ -72,6 +72,10 @@
                         <div class="col-sm-6"><input type="submit" value="click" name="submit"/></div>
                     </div>
                 </form>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-6"><a href="createAccount.php">Create Account</div>
+                </div>
                 </div> 
             </div>
         </div>

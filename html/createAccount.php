@@ -30,41 +30,41 @@
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4">CLID:</div>
-                <div class="col-sm-6"><input type="text" name="CLID"></div>
+                <div class="col-sm-6"><input type="text" name="clid" required></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4">Full Name:</div>
-                <div class="col-sm-6"><input type="text" name="name"></div>
+                <div class="col-sm-6"><input type="text" name="name" required></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4">Password:</div>
-                <div class="col-sm-6"><input type="text" name="password"></div>
+                <div class="col-sm-6"><input type="text" name="password" required></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-4">Checking #:</div>
-                <div class="col-sm-6"><input type="text" name="chkNum"></div>
+                <div class="col-sm-4">Checking Account Number:</div>
+                <div class="col-sm-6"><input type="text" name="checkingaccountnumber" required></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-4">Balance:</div>
-                <div class="col-sm-6"><input type="text" name="bal1"></div>
+                <div class="col-sm-4">Checking Balance:</div>
+                <div class="col-sm-6"><input type="text" name="checkingaccountbalance" required></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4">Savings Account Number:</div>
-                <div class="col-sm-6"><input type="text" name="savNum"></div>
+                <div class="col-sm-6"><input type="text" name="savingsaccountnumber"></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-4">Balance:</div>
-                <div class="col-sm-6"><input type="text" name="bal2"></div>
+                <div class="col-sm-4"> Savings Balance:</div>
+                <div class="col-sm-6"><input type="text" name="savingsaccountbalance"></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
-                <div class="col-sm-6"><input type="submit" value="Submit"/></div>
+                <div class="col-sm-6"><input type="submit" value="submit" name="submit"/></div>
               </div>
             </div>
           </form>
