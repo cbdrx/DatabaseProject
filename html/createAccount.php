@@ -24,17 +24,31 @@
         
         include 'php/Queries.php';
         $conn =  ConnectToDB();
+		// CHANGE THIS TO BE ONE LONG QUERY AND SEE IF IT FAILS
         $querystring = "insert into user values ('$username', '$password', '$name', 0);";
-        $result = $conn->query($querystring);
+		if($conn->query($querystring) == FALSE)
+		{
+			$_SESSION["errorMessage"] = "That user already exists";
+		}
+        //$result = $conn->query($querystring);
         $querystring = "insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');"
-        $result = $conn->query($querystring);
+        if($conn->query($querystring) == FALSE)
+		{
+			$_SESSION["errorMessage"] = "That checking number already exists";
+		}
+		//$result = $conn->query($querystring);
+		
         if (isset($_POST["savingsaccountnumber"];))
         {
             if (isset($_POST["savingsaccountbalance"]))
                 $querystring = "insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');"
             else
                 $querystring = "insert into savingsAccount values('$savingsnum', 0.00, '$username');"
-            $result = $conn->query($querystring);
+            //$result = $conn->query($querystring);
+			if($conn->query($querystring) == FALSE)
+			{
+				$_SESSION["errorMessage"] = "An error has occurred";
+			}
         }
             
         //Do a check for success here? each time? idk.
