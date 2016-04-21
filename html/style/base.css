@@ -19,7 +19,7 @@
     margin-bottom:20px;
 }
 
-.blackText {
+input, select, textarea{
     color: black;
 }
 
