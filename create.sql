@@ -17,7 +17,7 @@ CREATE TABLE `category` (
   `goal` float(16,2) NOT NULL DEFAULT '0.00',
   `isDefault` tinyint(1) NOT NULL DEFAULT '0',
   `FK_createdBy` varchar(7) NOT NULL,
-  `FK_parentID` varchar(255) NOT NULL,
+  `FK_parentID` bigint(20) NOT NULL,
   `income` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   CONSTRAINT `category_ibfk_1` FOREIGN KEY (`FK_createdBy`) REFERENCES `user` (`CLID`),
