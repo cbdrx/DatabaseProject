@@ -18,12 +18,10 @@ CREATE TABLE `category` (
   `isDefault` tinyint(1) NOT NULL DEFAULT '0',
   `FK_createdBy` varchar(7) NOT NULL,
   `FK_parentID` varchar(255) NOT NULL,
-  `FK_parentCLID` varchar(7) NOT NULL DEFAULT '',
   `income` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   CONSTRAINT `category_ibfk_1` FOREIGN KEY (`FK_createdBy`) REFERENCES `user` (`CLID`),
-  CONSTRAINT `category_ibfk_2` FOREIGN KEY (`FK_parentID`) REFERENCES `category` (`id`),
-  CONSTRAINT `category_ibfk_3` FOREIGN KEY (`FK_parentCLID`) REFERENCES `user` (`CLID`)
+  CONSTRAINT `category_ibfk_2` FOREIGN KEY (`FK_parentID`) REFERENCES `category` (`id`)
 );
 
 CREATE TABLE `checkingAccount` (
