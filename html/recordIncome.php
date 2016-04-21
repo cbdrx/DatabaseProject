@@ -1,3 +1,5 @@
+<?php session_start(); require 'php/CheckUser.php'; isUserLoggedIn(); ?>
+
 <!DOCTYPE html>
 
 <html>
@@ -7,34 +9,34 @@
 <script src="js/jquery-1.12.2.min.js"></script>
 
   <?php
-    function login()
-    {
-        session_start();
-        $amount
-        $date
-        $user
-        $category
-        
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
-        $querystring = "select * from user where CLID = '$username' and password = '$password';";
-        $result = $conn->query($querystring);
-        $numRows = $result->num_rows;
-        if ($numRows > 0) {
-            $_SESSION["loggedInUser"] = $username;
-            $_SESSION["errorMessage"] = "";
-            header("Location: index.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
-            header("Location: Login.php");
-        }
-    }
-    if (isset($_POST['submit']))
-    {
-        echo 'Here';
-        login();
-    }
+    // function login()
+    // {
+    //     session_start();
+    //     $amount
+    //     $date
+    //     $user
+    //     $category
+    //     
+    //     include 'php/Queries.php';
+    //     $conn =  ConnectToDB();
+    //     $querystring = "select * from user where CLID = '$username' and password = '$password';";
+    //     $result = $conn->query($querystring);
+    //     $numRows = $result->num_rows;
+    //     if ($numRows > 0) {
+    //         $_SESSION["loggedInUser"] = $username;
+    //         $_SESSION["errorMessage"] = "";
+    //         header("Location: index.php");
+    //     }
+    //     else {
+    //         $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+    //         header("Location: Login.php");
+    //     }
+    // }
+    // if (isset($_POST['submit']))
+    // {
+    //     echo 'Here';
+    //     login();
+    // }
   ?>
 
 <title> New Income </title>
@@ -67,9 +69,20 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">Password:</div>
+                                        <div class="col-sm-6">Category:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="category">
+                                            <select name="category">
+                                                <?php 
+                                                    session_start();
+                                                    $userName = $_SESSION["loggedInUser"];
+                                                    $query_result = AllCategoriesForUser($userName);
+                                                    for($i = 0; $i < $query_result->num_rows; $i++)
+                                                    {
+                                                        $currentTuple = $query_result->fetch_row();
+                                                        echo '<option value="' . $currentTuple[0] . "'>" . $currentTuple[0] . "</option>";
+                                                    }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="row">
