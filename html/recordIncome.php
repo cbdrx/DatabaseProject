@@ -80,7 +80,7 @@
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
                                                         if ($currentTuple[3] && $currentTuple[2] != "Default")
-                                                            echo '<option value="' . $currentTuple[1] . "'>" . $currentTuple[0] . "</option>";
+                                                            echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[1] . '</option>';
                                                     }
                                                 ?>
                                             </select>
