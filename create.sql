@@ -21,9 +21,9 @@ CREATE TABLE `category` (
   `FK_parentCLID` varchar(7) NOT NULL DEFAULT '',
   `income` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
-  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`FK_createdBy`) REFERENCES `user` (`CLID`) ON DELETE CASCADE,
-  CONSTRAINT `category_ibfk_2` FOREIGN KEY (`FK_parentName`) REFERENCES `category` (`name`) ON DELETE CASCADE,
-  CONSTRAINT `category_ibfk_3` FOREIGN KEY (`FK_parentCLID`) REFERENCES `user` (`CLID`) ON DELETE CASCADE
+  CONSTRAINT `category_ibfk_1` FOREIGN KEY (`FK_createdBy`) REFERENCES `user` (`CLID`),
+  CONSTRAINT `category_ibfk_2` FOREIGN KEY (`FK_parentName`) REFERENCES `category` (`name`),
+  CONSTRAINT `category_ibfk_3` FOREIGN KEY (`FK_parentCLID`) REFERENCES `user` (`CLID`)
 );
 
 CREATE TABLE `checkingAccount` (
@@ -32,7 +32,7 @@ CREATE TABLE `checkingAccount` (
   `FK_user` varchar(7) NOT NULL,
   PRIMARY KEY (`accountNumber`),
   KEY `FK_user` (`FK_user`),
-  CONSTRAINT `checkingAccount_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`) ON DELETE CASCADE
+  CONSTRAINT `checkingAccount_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`)
 ); 
 
 CREATE TABLE `savingsAccount` (
@@ -41,7 +41,7 @@ CREATE TABLE `savingsAccount` (
   `FK_user` varchar(7) NOT NULL,
   PRIMARY KEY (`accountNumber`),
   KEY `FK_user` (`FK_user`),
-  CONSTRAINT `savingsAccount_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`) ON DELETE CASCADE
+  CONSTRAINT `savingsAccount_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`)
 );
 
 CREATE TABLE `incomeTransaction` (
@@ -53,8 +53,8 @@ CREATE TABLE `incomeTransaction` (
   PRIMARY KEY (`id`,`FK_user`,`FK_category`),
   KEY `FK_user` (`FK_user`),
   KEY `FK_category` (`FK_category`),
-  CONSTRAINT `incomeTransaction_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`) ON DELETE CASCADE,
-  CONSTRAINT `incomeTransaction_ibfk_2` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`) ON DELETE CASCADE
+  CONSTRAINT `incomeTransaction_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`),
+  CONSTRAINT `incomeTransaction_ibfk_2` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`)
 );
 
 CREATE TABLE `expenseTransaction` (
@@ -71,10 +71,10 @@ CREATE TABLE `expenseTransaction` (
   KEY `FK_category` (`FK_category`),
   KEY `FK_business` (`FK_business`),
   KEY `FK_accountNumber` (`FK_accountNumber`),
-  CONSTRAINT `expenseTransaction_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`) ON DELETE CASCADE,
-  CONSTRAINT `expenseTransaction_ibfk_2` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `expenseTransaction_ibfk_3` FOREIGN KEY (`FK_business`) REFERENCES `business` (`name`) ON DELETE CASCADE,
-  CONSTRAINT `expenseTransaction_ibfk_4` FOREIGN KEY (`FK_accountNumber`) REFERENCES `checkingAccount` (`accountNumber`) ON DELETE CASCADE
+  CONSTRAINT `expenseTransaction_ibfk_1` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`),
+  CONSTRAINT `expenseTransaction_ibfk_2` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`),
+  CONSTRAINT `expenseTransaction_ibfk_3` FOREIGN KEY (`FK_business`) REFERENCES `business` (`name`),
+  CONSTRAINT `expenseTransaction_ibfk_4` FOREIGN KEY (`FK_accountNumber`) REFERENCES `checkingAccount` (`accountNumber`)
 );
 
 CREATE TABLE `userBusinessCategory` (
@@ -84,7 +84,7 @@ CREATE TABLE `userBusinessCategory` (
   PRIMARY KEY (`FK_business`,`FK_user`,`FK_category`),
   KEY `FK_user` (`FK_user`),
   KEY `FK_category` (`FK_category`),
-  CONSTRAINT `userBusinessCategory_ibfk_1` FOREIGN KEY (`FK_business`) REFERENCES `business` (`name`) ON DELETE CASCADE,
-  CONSTRAINT `userBusinessCategory_ibfk_2` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`) ON DELETE CASCADE,
-  CONSTRAINT `userBusinessCategory_ibfk_3` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`) ON DELETE CASCADE
+  CONSTRAINT `userBusinessCategory_ibfk_1` FOREIGN KEY (`FK_business`) REFERENCES `business` (`name`),
+  CONSTRAINT `userBusinessCategory_ibfk_2` FOREIGN KEY (`FK_user`) REFERENCES `user` (`CLID`),
+  CONSTRAINT `userBusinessCategory_ibfk_3` FOREIGN KEY (`FK_category`) REFERENCES `category` (`id`)
 );  
