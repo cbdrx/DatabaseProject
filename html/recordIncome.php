@@ -79,7 +79,7 @@
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[3] && $currentTuple[2] != "Default")
+                                                        if ($currentTuple[2] && $currentTuple[2] != "Default")
                                                             echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[1] . '</option>';
                                                     }
                                                 ?>
