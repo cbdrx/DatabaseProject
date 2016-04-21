@@ -6,6 +6,37 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <script src="js/jquery-1.12.2.min.js"></script>
 
+  <?php
+    function login()
+    {
+        session_start();
+        $amount
+        $date
+        $user
+        $category
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        $querystring = "select * from user where CLID = '$username' and password = '$password';";
+        $result = $conn->query($querystring);
+        $numRows = $result->num_rows;
+        if ($numRows > 0) {
+            $_SESSION["loggedInUser"] = $username;
+            $_SESSION["errorMessage"] = "";
+            header("Location: index.php");
+        }
+        else {
+            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+            header("Location: Login.php");
+        }
+    }
+    if (isset($_POST['submit']))
+    {
+        echo 'Here';
+        login();
+    }
+  ?>
+
 <title> New Income </title>
 
     <?php include 'navbar.php';?>
@@ -24,45 +55,21 @@
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <div class="row">
-                                        <div class="col-sm-6">CLID:</div>
+                                        <div class="col-sm-6">Amount:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="CLID">
+                                            <input type="text" name="amount">
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-sm-6">Full Name:</div>
+                                        <div class="col-sm-6">Date:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="name">
+                                            <input type="text" name="date">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">Password:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="password">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">Checking #:</div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="chkNum">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">Balance:</div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="bal1">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">Savings Account Number:</div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="savNum">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">Balance:</div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="bal2">
+                                            <input type="text" name="category">
                                         </div>
                                     </div>
                                     <div class="row">
