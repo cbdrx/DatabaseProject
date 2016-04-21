@@ -12,7 +12,7 @@ CREATE TABLE `business` (
 );
 
 CREATE TABLE `category` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `goal` float(16,2) NOT NULL DEFAULT '0.00',
   `isDefault` tinyint(1) NOT NULL DEFAULT '0',
@@ -49,7 +49,7 @@ CREATE TABLE `incomeTransaction` (
   `amount` float(16,2) NOT NULL,
   `date` date NOT NULL,
   `FK_user` varchar(7) NOT NULL,
-  `FK_category` int NOT NULL,
+  `FK_category` bigint(20) NOT NULL,
   PRIMARY KEY (`id`,`FK_user`,`FK_category`),
   KEY `FK_user` (`FK_user`),
   KEY `FK_category` (`FK_category`),
@@ -62,7 +62,7 @@ CREATE TABLE `expenseTransaction` (
   `amount` float(16,2) NOT NULL,
   `date` date NOT NULL,
   `FK_user` varchar(7) NOT NULL,
-  `FK_category` id NOT NULL,
+  `FK_category` bigint(20) NOT NULL,
   `FK_business` varchar(255) NOT NULL,
   `FK_accountNumber` bigint(16) NOT NULL,
   `checkNumber` bigint(16) DEFAULT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE `expenseTransaction` (
 CREATE TABLE `userBusinessCategory` (
   `FK_business` varchar(255) NOT NULL,
   `FK_user` varchar(7) NOT NULL,
-  `FK_category` int NOT NULL,
+  `FK_category` bigint(20) NOT NULL,
   PRIMARY KEY (`FK_business`,`FK_user`,`FK_category`),
   KEY `FK_user` (`FK_user`),
   KEY `FK_category` (`FK_category`),
