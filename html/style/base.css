@@ -19,10 +19,6 @@
     margin-bottom:20px;
 }
 
-input, select, textarea{
-    color: black;
-}
-
 .pageContent{
     height:500px;
     width:100%;
