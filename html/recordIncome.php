@@ -9,34 +9,34 @@
 <script src="js/jquery-1.12.2.min.js"></script>
 
   <?php
-    // function login()
-    // {
-    //     session_start();
-    //     $amount
-    //     $date
-    //     $user
-    //     $category
-    //     
-    //     include 'php/Queries.php';
-    //     $conn =  ConnectToDB();
-    //     $querystring = "select * from user where CLID = '$username' and password = '$password';";
-    //     $result = $conn->query($querystring);
-    //     $numRows = $result->num_rows;
-    //     if ($numRows > 0) {
-    //         $_SESSION["loggedInUser"] = $username;
-    //         $_SESSION["errorMessage"] = "";
-    //         header("Location: index.php");
-    //     }
-    //     else {
-    //         $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
-    //         header("Location: Login.php");
-    //     }
-    // }
-    // if (isset($_POST['submit']))
-    // {
-    //     echo 'Here';
-    //     login();
-    // }
+    function login()
+    {
+        session_start();
+        $amount = $_POST["amount"];
+        $date = $_POST["date"];
+        $user = $_SESSION["loggedInUser"];
+        $category = $_POST["category"];
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '";
+        $result = $conn->query($querystring);
+        $numRows = $result->num_rows;
+        if ($numRows > 0) {
+            $_SESSION["loggedInUser"] = $username;
+            $_SESSION["errorMessage"] = "";
+            header("Location: index.php");
+        }
+        else {
+            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+            header("Location: Login.php");
+        }
+    }
+    if (isset($_POST['submit']))
+    {
+        echo 'Here';
+        login();
+    }
   ?>
 
 <title> New Income </title>
