@@ -19,7 +19,9 @@
     margin-bottom:20px;
 }
 
-
+.blackText {
+    color: black;
+}
 
 .pageContent{
     height:500px;

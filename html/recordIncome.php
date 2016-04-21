@@ -59,18 +59,18 @@
                                     <div class="row">
                                         <div class="col-sm-6">Amount:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="amount">
+                                            <input class="blackText" type="text" name="amount">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">Date:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="date">
+                                            <input class="blackText" type="text" name="date">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">Category:</div>
-                                        <div class="col-sm-6">
+                                        <div class="blackText" class="col-sm-6">
                                             <select name="category">
                                                 <?php 
                                                     session_start();
