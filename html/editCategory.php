@@ -21,9 +21,14 @@
         $goal = $_POST['goal'];
         $parentID = $_POST['parentID'];
         
-        $querystring = "update category set name = '$name', goal = '$goal', FK_parentID = '$parentID' where id = '$catID'";
-        if ($parentID == "No Parent")
-            $querystring = "update category set name = '$name', goal = '$goal', FK_parentID = null where id = '$catID'";
+        if ($parentID != "No Parent" && $goal != "")
+            $querystring = "update category set name = '$name', goal = '$goal', FK_parentID = '$parentID' where id = '$catID'";
+        if ($parentID != "No Parent" && $goal == "")
+            $querystring = "update category set name = '$name', goal = null, FK_parentID = '$parentID' where id = '$catID'";
+        if ($parentID == "No Parent" && $goal == "")
+            $querystring = "update category set name = '$name', goal = null, FK_parentID = null where id = '$catID'";
+        if ($parentID == "No Parent" && $goal != "")
+            $querystring = "update category set name = '$name', goal = $goal, FK_parentID = null where id = '$catID'";
 
         $result = $conn->query($querystring);
         if ($result) {
@@ -144,8 +149,9 @@
                                          $conn->close();                  
                                     ?>
                                     <div class="row">
+                                        <div class="col-sm-1"></div>
                                         <div class="col-sm-6">
-                                            <input type="submit" value="Submit" />
+                                            <input type="submit" value="submit" name="submit"/>
                                         </div>
                                     </div>
                                 </div>
