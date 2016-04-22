@@ -89,12 +89,24 @@
                                                     "<div class=\"col-sm-6\">Parent Category:</div>" .
                                                     "<div class=\"col-sm-6\">";
                                                     if ($currentTuple[3])
-                                                        echo "<input type=\"text\" name=\"parentID\" value=\"$parentID\" readonly=\"readonly\">";
+                                                    {
+                                                        $query = ("select c2.id, c2.name from category c1, category c2 where c1.FK_createdBy = '$username' and c1.id = '$id' and c2.id = c1.FK_parentID;");
+                                                        $result = $conn->query($query);
+                                                        if ($result->num_rows > 0)
+                                                        {
+                                                            $currentTuple = $query_result->fetch_row();
+                                                            $parentID = $currentTuple[0];
+                                                            $parentName = $currentTuple[1];
+                                                            echo "<span type=\"text\" name=\"parentID\" value=\"$parentID\">$parentName</span>";
+                                                        }
+                                                        else
+                                                            echo "<span type=\"text\" name=\"parentID\" value=\"null\">$parentName</span>";
+                                                    }
                                                     else
                                                     {
                                                         echo "<select name=\"parentID\">";
                                                             echo "<option value=\"No Parent\">No Parent</option>";
-                                                            $query = ("select id, name from category where FK_createdBy = '$username' and id != '$id' and FK_parentID = null order by name;");
+                                                            $query = ("select id, name from category where FK_createdBy = '$username' and id != '$id' and FK_parentID is null order by name;");
                                                             $results = $conn->query($query);
                                                             for($i = 0; $i < $query_result->num_rows; $i++)
                                                             {
