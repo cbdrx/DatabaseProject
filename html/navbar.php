@@ -17,10 +17,10 @@
                 <a href="recordIncome.php"> New Income </a>
             </li>
             <li>
-                <a href=#> New Expense </a>
+                <a href="recordExpense.php"> New Expense </a>
             </li> 
             <li>
-                <a href=#> Transfers </a>
+                <a href="transfers.php"> Transfers </a>
             </li>  
             <li>
                 <a href="Checks.php"> Checks </a>
