@@ -16,7 +16,7 @@
         include 'php/Queries.php';
         $conn =  ConnectToDB();
         
-        $catID = $_GET['id'];
+        $catID = $_POST['id'];
         $name = $_POST['name'];
         $goal = $_POST['goal'];
         $parentID = $_POST['parentID'];
@@ -71,6 +71,8 @@
                                          $querystring = "select id, name, goal, isDefault, FK_parentID, income from category where id = '$catID';";
                                          $result = $conn->query($querystring);
                                          $currentTuple = $result->fetch_row();
+                                         
+                                         echo "<input name=\"catID\" type=\"hidden\" value=\"$catID\">";
                                          
                                          $id = $currentTuple[0]; $name = $currentTuple[1]; $goal = $currentTuple[2];
                                          $isDefault = $currentTuple[3]; $parentID = $currentTuple[4];
