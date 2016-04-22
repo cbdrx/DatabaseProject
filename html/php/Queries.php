@@ -82,7 +82,7 @@
             " and c1.FK_parentID = c2.id " .
             " order by c2.name, c1.name)
             UNION
-            (select 'Top-Level Category', c1.name Name, c1.income 'Is Income', c1.goal Goal 
+            (select c1.id, 'Top-Level Category', c1.name Name, c1.income 'Is Income', c1.goal Goal 
                 from category as c1
             where c1.FK_createdBy = '$username' 
              and c1.FK_parentID is null

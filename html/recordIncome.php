@@ -92,6 +92,7 @@
                                         <div class="col-sm-6">
                                             <select name="category">
                                                 <?php 
+                                                    include 'php/Queries.php';
                                                     session_start();
                                                     $userName = $_SESSION["loggedInUser"];
                                                     $query_result = AllCategoriesForUser($userName);
