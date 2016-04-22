@@ -41,7 +41,7 @@
         else  
         {  
             // get cat id for Mis Expense
-            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';";
+            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Expense';";
             $currentTuple = $query_result->fetch_row();
             $category = $currentTuple[0];
            
