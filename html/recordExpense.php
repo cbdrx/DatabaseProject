@@ -30,7 +30,6 @@
         $accountNumber = $currentTuple[0];
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
-        $result = $conn->query($querystring);
         
         header("Location: index.php");
     }
