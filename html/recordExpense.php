@@ -24,7 +24,7 @@
         $accountNumber;
         $checkNumber; 
         
-        $querystring = "select accountNumber from checkingAccount where FK_user = '$user';"
+        $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
         $result = $conn->query($querystring);
         $currentTuple = $query_result->fetch_row();
         $accountNumber = $currentTuple[0];
