@@ -108,10 +108,14 @@
                                                             $currentTuple = $result->fetch_row();
                                                             $parentID = $currentTuple[0];
                                                             $parentName = $currentTuple[1];
-                                                            echo "<input type=\"text\" name=\"parentID\" value=\"$parentID\" readonly=\"readonly\">$parentName</span>";
+                                                            echo "<input type=\"hidden\" name=\"parentID\" value=\"$parentID\" readonly=\"readonly\">";
+                                                            echo "<span>$parentName</span>";
                                                         }
                                                         else
-                                                            echo "<input type=\"text\" name=\"parentID\" value=\"No Parent\" readonly=\"readonly\">No Parent</span>";
+                                                        {
+                                                            echo "<input type=\"hidden\" name=\"parentID\" value=\"No Parent\" readonly=\"readonly\">";
+                                                            echo "<span>No Parent</span>";
+                                                        }
                                                     }
                                                     else
                                                     {
