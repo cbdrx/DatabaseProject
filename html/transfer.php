@@ -12,18 +12,19 @@
     function transfer()
     {
         session_start();
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        
         $user = $_SESSION["loggedInUser"];
         $amount = $_POST["amount"];
         $type = $_POST["type"];
         $date = date("Y/m/d");
         
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
-        
         if ($type == "toChecking")      
         {  
             // get cat for mis income
-            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';"
+            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';";
             $currentTuple = $query_result->fetch_row();
             $category = $currentTuple[0];
             
@@ -40,7 +41,7 @@
         else  
         {  
             // get cat id for Mis Expense
-            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';"
+            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';";
             $currentTuple = $query_result->fetch_row();
             $category = $currentTuple[0];
            
@@ -70,7 +71,7 @@
     }
   ?>
 
-<title> New Income </title>
+<title> Transfer </title>
 
     <?php include 'navbar.php';?>
     <?php include 'php/Queries.php'; ConnectToDB(); ?>
@@ -84,7 +85,7 @@
                         <div class="row areaHeader" style="height: 15%;">
                             <div class="col-sm-6"> <h2> Transfer Money </h2> </div>
                         </div>
-                        <form class="vparent" style="height: 80%; width: 100%;">
+                        <form action="transfer.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <div class="row">
@@ -102,7 +103,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <input type="submit" value="Submit" />
+                                            <input type="submit" value="submit" name="submit"/>
                                         </div>
                                     </div>
                                 </div>
