@@ -46,7 +46,7 @@ function BuildCategoryTable($username)
              and c1.FK_parentID is null
              order by c1.name)
             ;");
-    $query_results = $conn->query($query);
+    $query_result = $conn->query($query);
     $conn->close();
         
     $numFields = $query_result->field_count;
@@ -85,7 +85,7 @@ function BuildBusinessTable($username)
             " from userBusinessCategory " .
             " where FK_user = '$username' " .
             " order by FK_business, FK_category;");
-    $query_results = $conn->query($query);
+    $query_result = $conn->query($query);
     $conn->close();
         
     $numFields = $query_result->field_count;
