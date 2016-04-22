@@ -10,31 +10,19 @@
   <?php
     session_start();
     session_destroy();
-    function login()
+    function deleteAccount()
     {
         session_start();
-        $username = $_POST["clid"];
-        $password = $_POST["password"];
+        $username = $_SESSION["loggedInUser"];
+        
         
         include 'php/Queries.php';
-        $conn =  ConnectToDB();
-        $querystring = "select * from user where CLID = '$username' and password = '$password';";
-        $result = $conn->query($querystring);
-        $numRows = $result->num_rows;
-        if ($numRows > 0) {
-            $_SESSION["loggedInUser"] = $username;
-            $_SESSION["errorMessage"] = "";
-            header("Location: index.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
-            header("Location: Login.php");
-        }
+            DeleteAccount($username);
     }
-    if (isset($_POST['submit']))
+    if (isset($_POST['delete']))
     {
         echo 'Here';
-        login();
+        DeleteAccount();
     }
   ?>
 
@@ -52,7 +40,7 @@
             </div>
         <div class="col-sm-8">
             <div class="roundGrayLoginBox">
-                <form action="Login.php" method="post">
+                <form action="deleteAccount.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
                         <?php echo $_SESSION["errorMessage"] ?>
@@ -60,22 +48,16 @@
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">CLID:</div>
-                        <div class="col-sm-6" style="padding:1px">
-                            <input type="text" name="clid" required>
-                        </div>
+                        <div class="col-sm-6" style="padding:1px"><input type="text" name="clid" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">Password: </div>
-                        <div class="col-sm-6" style="padding:1px">
-                            <input type="password" name="password" required>
-                        </div>
+                        <div class="col-sm-6" style="padding:1px"><input type="password" name="password" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-6">
-                            <input type="submit" value="submit" name="submit"/>
-                        </div>
+                        <div class="col-sm-6"><input type="submit" value="delete" name="Delete"/></div>
                     </div>
                 </form>
                 <div class="row">

@@ -23,8 +23,11 @@
                 <a href=#> Transfers </a>
             </li>  
             <li>
-                <a href=#> Checks </a>
+                <a href="Checks.php"> Checks </a>
             </li>  
+            <li>
+                <a href="deleteAccount.php"> Delete Account </a>
+            </li>
             <li>
                 <a href="categories.php"> Modify Categories / Goals </a>
             </li>    
