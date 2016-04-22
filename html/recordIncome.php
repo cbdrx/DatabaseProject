@@ -62,7 +62,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">Date:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="date" required>
+                                            <input type="date" name="date" required>
                                         </div>
                                     </div>
                                     <div class="row">
