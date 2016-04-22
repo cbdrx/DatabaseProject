@@ -12,15 +12,27 @@
     function record()
     {
         session_start();
-        $amount = $_POST["amount"];
-        $date = $_POST["date"];
-        $user = $_SESSION["loggedInUser"];
-        $category = $_POST["category"];
         
         include 'php/Queries.php';
         $conn =  ConnectToDB();
-        $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
-        $result = $conn->execute($querystring);
+        
+        $conn->query("CREATE TABLE myCity LIKE City");
+
+        /* Prepare an insert statement */
+        $query = "insert into incomeTransaction(amount, date, FK_user, FK_category) values(?, ?, ?, ?);";
+        $stmt = $conn->prepare($query);
+
+        $stmt->bind_param("ssss", $val1, $val2, $val3, $val4);
+
+        $val1 = $_POST["amount"];
+        $val2 = $_POST["date"];
+        $val3 = $_SESSION["loggedInUser"];
+        $val4 = $_POST["category"];        
+        
+        $result = $stmt->execute();
+        
+        $stmt->close();
+        
         if ($result) {
             header("Location: index.php");
         }
