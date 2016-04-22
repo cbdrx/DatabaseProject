@@ -25,7 +25,8 @@
         {  
             // get cat for mis income
             $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';";
-            $currentTuple = $query_result->fetch_row();
+            $result = $conn->query($querystring);
+            $currentTuple = $result->fetch_row();
             $category = $currentTuple[0];
             
             $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
@@ -42,13 +43,14 @@
         {  
             // get cat id for Mis Expense
             $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Expense';";
-            $currentTuple = $query_result->fetch_row();
+            $result = $conn->query($querystring);
+            $currentTuple = $result->fetch_row();
             $category = $currentTuple[0];
            
             // get check account num for user
             $querystring = "select accountNumber from checkingAccount where FK_user = '$user';"
             $result = $conn->query($querystring);
-            $currentTuple = $query_result->fetch_row();
+            $currentTuple = $result->fetch_row();
             $accountNumber = $currentTuple[0]; 
             
             $business = "Checking To Savings";
