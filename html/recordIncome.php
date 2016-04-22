@@ -20,7 +20,7 @@
         include 'php/Queries.php';
         $conn =  ConnectToDB();
         $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
-        $result = $conn->query($querystring);
+        $result = $conn->execute($querystring);
         if ($result) {
             header("Location: index.php");
         }
