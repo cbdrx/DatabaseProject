@@ -67,29 +67,29 @@
                                          $result = $conn->query($querystring);
                                          $currentTuple = $result->fetch_row();
                                          
-                                         $id = $currentTuple[0]; $name = $currentTuple[0]; $goal = $currentTuple[0];
-                                         $isDefault = $currentTuple[0]; $parentID = $currentTuple[0];
+                                         $id = $currentTuple[0]; $name = $currentTuple[1]; $goal = $currentTuple[2];
+                                         $isDefault = $currentTuple[3]; $parentID = $currentTuple[4];
                                          
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Name:</div>" .
                                                     "<div class=\"col-sm-6\">";
                                                     if ($currentTuple[3])
-                                                        echo "<input type=\"text\" name=\"name\" value=\"'$name'\" readonly=\"readonly\">";
+                                                        echo "<input type=\"text\" name=\"name\" value=\"$name\" readonly=\"readonly\">";
                                                     else
-                                                        echo "<input type=\"text\" name=\"name\" value=\"'$name'\">";
+                                                        echo "<input type=\"text\" name=\"name\" value=\"$name\">";
                                          echo        "</div>" . 
                                                 "</div>";
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Goal:</div>" .
                                                     "<div class=\"col-sm-6\">";
-                                                        echo "<input type=\"text\" name=\"goal\" value=\"'$goal'\">";
+                                                        echo "<input type=\"text\" name=\"goal\" value=\"$goal\">";
                                          echo        "</div>" . 
                                                 "</div>";   
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Parent Category:</div>" .
                                                     "<div class=\"col-sm-6\">";
                                                     if ($currentTuple[3])
-                                                        echo "<input type=\"text\" name=\"parentID\" value=\"'$parentID'\" readonly=\"readonly\">";
+                                                        echo "<input type=\"text\" name=\"parentID\" value=\"$parentID\" readonly=\"readonly\">";
                                                     else
                                                     {
                                                         echo "<select name=\"parentID\">";
