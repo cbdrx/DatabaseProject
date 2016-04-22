@@ -48,7 +48,7 @@
             $category = $currentTuple[0];
            
             // get check account num for user
-            $querystring = "select accountNumber from checkingAccount where FK_user = '$user';"
+            $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
             $result = $conn->query($querystring);
             $currentTuple = $result->fetch_row();
             $accountNumber = $currentTuple[0]; 
