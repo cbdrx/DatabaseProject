@@ -107,5 +107,37 @@
         return $results;
     }
     
+    function AllChecksForUser($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("select * from ExpenseTransaction E " .
+                    "where E.FK_user = '$username' and E.checkNumber != NULL;");
+        $results = $conn->query($query);
+        $conn->close();
+        return $results;
+    }
+    
+    function DeleteAccount($username)
+    {
+        $conn = ConnectToDB();
+        $query = ("delete from userBusinessCategory where FK_user = '$username';");
+        $results = $conn->query($query);
+        
+        $query = ("delete from expenseTransaction where FK_user = '$username';");
+        $results = $conn->query($query);
+        $query = ("delete from incomeTransaction where FK_user = '$username';");
+        $results = $conn->query($query);
+        $query = ("delete from category where FK_createdBy = '$username';");
+        $results = $conn->query($query);
+        $query = ("delete from savingsAccount where FK_user = '$username';");
+        $results = $conn->query($query);
+        $query = ("delete from checkingAccount where FK_user = '$username';");
+        $results = $conn->query($query);
+        $query = ("delete from user where CLID = '$username';");
+        $results = $conn->query($query);
+        
+        $conn->close();
+        return $results;
+    }
     
 ?>
