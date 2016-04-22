@@ -54,7 +54,7 @@
                 }
                 if (isset($_POST['submit']))
                 {
-                    echo 'Here';
+                    echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';echo 'Here';
                     record();
                 }
             ?>
@@ -107,6 +107,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-sm-1"></div>
                                         <div class="col-sm-6">
                                             <input type="submit" value="submit" name="submit"/>
                                         </div>
