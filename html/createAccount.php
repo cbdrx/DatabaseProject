@@ -28,16 +28,20 @@
 						
 						
 						
-		if (isset($_POST["savingsaccountnumber"];))
+		if (isset($_POST["savingsaccountnumber"]))
         {
             if (isset($_POST["savingsaccountbalance"]))
-                $querystring = "insert into user values ('$username', '$password', '$name', 0); 
-						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');
-						insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');";
+            {
+                $querystring = "insert into user values ('$username', '$password', '$name', 0); " .
+						" insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username'); " .
+						" insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');";
+            }
             else
-                $querystring = ("insert into user values ('$username', '$password', '$name', 0); 
+            {
+                $querystring = "insert into user values ('$username', '$password', '$name', 0); 
 						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username';
-						insert into savingsAccount values('$savingsnum', 0.00, '$username');"
+						insert into savingsAccount values('$savingsnum', 0.00, '$username');";
+            }
             //$result = $conn->query($querystring);
 			if($conn->query($querystring) == FALSE)
 			{
@@ -47,7 +51,7 @@
 		else
 		{
 			$querystring = "insert into user values ('$username', '$password', '$name', 0); 
-						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');");
+						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');";
 			if($conn->query($querystring) == FALSE)
 			{
 				$_SESSION["errorMessage"] = "An error has occured";
@@ -83,15 +87,7 @@
         }
         */
         //Do a check for success here? each time? idk.
-        if ($numRows > 0) {
-            $_SESSION["loggedInUser"] = $username;
-            $_SESSION["errorMessage"] = "";
-            header("Location: index.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
-            header("Location: Login.php");
-        }
+        header("Location: Login.php");
     }
     if (isset($_POST['submit']))
     {
