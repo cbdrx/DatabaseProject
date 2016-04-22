@@ -129,7 +129,7 @@
                                                                 $currentTuple = $query_result->fetch_row();
                                                                 if ($parentResult->num_rows > 0)
                                                                 {
-                                                                    if (parentTuple[0] == $currentTuple[0])
+                                                                    if ($parentTuple[0] == $currentTuple[0])
                                                                         echo "<option value=\"" . $currentTuple[0] . "\" selected>" . $currentTuple[1] . "</option>";
                                                                     else
                                                                         echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
