@@ -9,7 +9,7 @@ function BuildTable($query_result)
     {
         $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
     }
-    
+    $table .= "<th>Edit</th>";
     $table .= "</tr></thead>";
     
     $table .= "<tbody>";
@@ -57,6 +57,7 @@ function BuildCategoryTable($username)
         $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
     }
     
+    $table .= "<th>Edit</th>";
     $table .= "</tr></thead>";
     
     $table .= "<tbody>";

@@ -16,7 +16,7 @@
         include 'php/Queries.php';
         $conn =  ConnectToDB();
         
-        $catID = $_POST['id'];
+        $catID = $_POST['catID'];
         $name = $_POST['name'];
         $goal = $_POST['goal'];
         $parentID = $_POST['parentID'];
