@@ -24,7 +24,7 @@
         if ($type == "toChecking")      
         {  
             // get cat for mis income
-            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Income';";
+            $querystring = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Income';";
             $result = $conn->query($querystring);
             $currentTuple = $result->fetch_row();
             $category = $currentTuple[0];
@@ -35,14 +35,13 @@
                 header("Location: index.php");
             }
             else {
-                $_SESSION["errorMessage"] = "Transfer failed.";
-                header("Location: transfer.php");
+                echo "Transfer failed.";
             }
         }
         else  
         {  
             // get cat id for Mis Expense
-            $querystring = "select id from category where FK_user = '$user' and name = 'Miscellaneous Expense';";
+            $querystring = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Expense';";
             $result = $conn->query($querystring);
             $currentTuple = $result->fetch_row();
             $category = $currentTuple[0];
@@ -61,8 +60,7 @@
                 header("Location: index.php");
             }
             else {
-                $_SESSION["errorMessage"] = "Transfer failed.";
-                header("Location: transfer.php");
+                echo "Transfer failed.";
             }
         }
     }
