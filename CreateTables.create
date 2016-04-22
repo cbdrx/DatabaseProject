@@ -11,7 +11,7 @@ create table savingsAccount(
     balance float(16,2) not null default 0.00,
     FK_user varchar(7) not null,
     Primary Key (accountNumber),
-    Foreign Key (FK_user) References user (CLID) On delete cascade
+    Foreign Key (FK_user) References user (CLID)  
 );
 
 create table checkingAccount(
@@ -19,7 +19,7 @@ create table checkingAccount(
     balance float(16,2) not null default 0.00,
     FK_user varchar(7) not null,
     Primary Key (accountNumber),
-    Foreign Key (FK_user) References user (CLID) On delete cascade
+    Foreign Key (FK_user) References user (CLID)  
 );
 
 create table business(
@@ -28,16 +28,16 @@ create table business(
 );
 
 create table category(
-    name varchar(255) not null,
-    goal float(16, 2) not null default 0.00,
+    id bigint(20) not null auto_increment,
+    name varchar(255) not null default "",
+    goal float(16, 2),
     isDefault tinyint(1) not null default 0,
     FK_createdBy varchar(7) not null,
-    FK_parentName varchar(255) not null,
-    FK_parentCLID varchar(7) not null,
-    primary key (name, FK_createdBy),
-    Foreign Key (FK_createdBy) References user (CLID) On delete cascade,
-    Foreign Key (FK_parentName) References category (name) On delete cascade,
-    Foreign Key (FK_parentCLID) References user (CLID) On delete cascade
+    FK_parentID bigint(20) not null,
+    income tinyint(1) not null default 0,
+    primary key (id),
+    Foreign Key (FK_createdBy) References user (CLID)  ,
+    Foreign Key (FK_parentID) References category (id)
 );
 
 
@@ -46,10 +46,10 @@ create table incomeTransaction(
     amount float (16, 2) not null,
     date date not null,
     FK_user varchar(7) not null,
-    FK_category  varchar(255) not null,
-    primary key (id, FK_user, FK_category),
-    Foreign Key (FK_user) References user (CLID) On delete cascade,
-    Foreign Key (FK_category) References category (name) On delete cascade
+    FK_category  bigint(20) not null,
+    primary key (id),
+    Foreign Key (FK_user) References user (CLID)  ,
+    Foreign Key (FK_category) References category (id)  
 );
     
 create table expenseTransaction(
@@ -57,23 +57,24 @@ create table expenseTransaction(
     amount float (16, 2) not null,
     date date not null,
     FK_user varchar(7) not null,
-    FK_category varchar(255) not null,
+    FK_category bigint(20) not null,
     FK_business varchar(255) not null,
     FK_accountNumber bigint(16) not null,
-    primary key (id, FK_accountNumber, FK_business, FK_category),
-    Foreign Key (FK_user) References user (CLID) On delete cascade,
-    Foreign Key ( FK_category) References category (name) On delete cascade,
-    Foreign Key (FK_business) References business (name) On delete cascade,
-    Foreign Key (FK_accountNumber) References checkingAccount (accountNumber) On delete cascade
+    checkNumber bigint(16) default null,
+    primary key (id),
+    Foreign Key (FK_user) References user (CLID)  ,
+    Foreign Key (FK_category) References category (id)  ,
+    Foreign Key (FK_business) References business (name)  ,
+    Foreign Key (FK_accountNumber) References checkingAccount (accountNumber)  
 );
 
 create table userBusinessCategory(
     FK_business varchar(255) not null,
     FK_user varchar(7) not null,
-    FK_category varchar(255) not null,
+    FK_category bigint(20) not null,
     primary key (FK_business, FK_user, FK_category),
-    Foreign Key (FK_business) References business (name) On delete cascade,
-    Foreign Key (FK_user) References user (CLID) On delete cascade,
-    Foreign Key (FK_category) References category (name) On delete cascade
+    Foreign Key (FK_business) References business (name)  ,
+    Foreign Key (FK_user) References user (CLID)  ,
+    Foreign Key (FK_category) References category (id)  
 );
 
