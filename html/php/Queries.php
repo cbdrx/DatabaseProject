@@ -112,6 +112,7 @@
         $query = ("select ucb.FK_business Business, ucb.FK_category CategoryID, category.name Category" .
             " from userBusinessCategory ucb, category " .
             " where FK_user = '$username' " .
+            " and FK_category = category.id" .
             " order by FK_business, FK_category;");
         $results = $conn->query($query);
         $conn->close();
