@@ -97,7 +97,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <input type="submit" value="Submit" />
+                                            <input type="submit" value="submit" name="submit"/>
                                         </div>
                                     </div>
                                 </div>
