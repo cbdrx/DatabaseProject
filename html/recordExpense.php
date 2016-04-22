@@ -16,7 +16,7 @@
         include 'php/Queries.php';
         $conn =  ConnectToDB();
        
-       $amount = $_POST["amount"];
+        $amount = $_POST["amount"];
         $date = $_POST["date"];
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
@@ -26,7 +26,7 @@
         
         $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
         $result = $conn->query($querystring);
-        $currentTuple = $query_result->fetch_row();
+        $currentTuple = $result->fetch_row();
         $accountNumber = $currentTuple[0];
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
