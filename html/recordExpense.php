@@ -32,7 +32,9 @@
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
         
-        //header("Location: index.php");
+        $conn->query($query_string);
+        
+        header("Location: index.php");
     }
     if (isset($_POST['submit']))
     {
