@@ -31,7 +31,7 @@
                 <div class="col-sm-10 tableWrapper" id="allCategories">
                     <table id="allCategoriesTable" class="table table-striped">  
                     <?php
-                        echo BuildTable(AllCategoriesForUser($_SESSION["loggedInUser"]));
+                        echo BuildCategoryTable$_SESSION["loggedInUser"]);
                     ?>
                     </table>  
                 </div>
