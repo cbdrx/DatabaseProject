@@ -8,34 +8,34 @@
   <title>Log In </title>
 
   <?php
-  session_start();
-  session_destroy();
-  function login()
-  {
     session_start();
-    $username = $_POST["clid"];
-    $password = $_POST["password"];
-    
-    include 'php/Queries.php';
-    $conn =  ConnectToDB();
-    $querystring = "select * from user where CLID = '$username' and password = '$password';";
-    $result = $conn->query($querystring);
-    $numRows = $result->num_rows;
-    if ($numRows > 0) {
-        $_SESSION["loggedInUser"] = $username;
-        $_SESSION["errorMessage"] = "";
-        header("Location: index.php");
+    session_destroy();
+    function login()
+    {
+        session_start();
+        $username = $_POST["clid"];
+        $password = $_POST["password"];
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        $querystring = "select * from user where CLID = '$username' and password = '$password';";
+        $result = $conn->query($querystring);
+        $numRows = $result->num_rows;
+        if ($numRows > 0) {
+            $_SESSION["loggedInUser"] = $username;
+            $_SESSION["errorMessage"] = "";
+            header("Location: index.php");
+        }
+        else {
+            $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
+            header("Location: Login.php");
+        }
     }
-    else {
-        $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
-        header("Location: Login.php");
+    if (isset($_POST['submit']))
+    {
+        echo 'Here';
+        login();
     }
-  }
-  if (isset($_POST['submit']))
-  {
-      echo 'Here';
-      login();
-  }
   ?>
 
   <div class="container">
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">Password: </div>
-                        <div class="col-sm-6" style="padding:1px"><input type="text" name="password" required></div>
+                        <div class="col-sm-6" style="padding:1px"><input type="password" name="password" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>

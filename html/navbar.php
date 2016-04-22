@@ -14,7 +14,7 @@
         <div class="nav navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
             <li> 
-                <a href=#> New Income </a>
+                <a href="recordIncome.php"> New Income </a>
             </li>
             <li>
                 <a href=#> New Expense </a>
