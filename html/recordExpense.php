@@ -92,11 +92,13 @@
                                         <div class="col-sm-6">
                                             <select name="business">
                                                 <?php 
-                                                    $query_result = //Get all businesses
+                                                    session_start();
+                                                    $userName = $_SESSION["loggedInUser"];
+                                                    $query_result = AllBusinessesForCategory($userName);
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . '</option>';
+                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[1] . '</option>';
                                                     }
                                                 ?>
                                             </select>
