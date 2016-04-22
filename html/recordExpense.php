@@ -12,16 +12,17 @@
     function record()
     {
         session_start();
-        $amount = $_POST["amount"];
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+       
+       $amount = $_POST["amount"];
         $date = $_POST["date"];
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
         $business = $_POST["business"];
         $accountNumber;
-        $checkNumber;
-        
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
+        $checkNumber; 
         
         $querystring = "select accountNumber from checkingAccount where FK_user = '$user';"
         $result = $conn->query($querystring);
@@ -30,13 +31,8 @@
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
         $result = $conn->query($querystring);
-        if ($result) {
-            header("Location: index.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Failed creating Income";
-            header("Location: recordIncome.php");
-        }
+        
+        header("Location: index.php");
     }
     if (isset($_POST['submit']))
     {
@@ -59,7 +55,7 @@
                         <div class="row areaHeader" style="height: 15%;">
                             <div class="col-sm-6"> <h2> Record New Income </h2> </div>
                         </div>
-                        <form class="vparent" style="height: 80%; width: 100%;">
+                        <form action="recordIncome.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <div class="row">
@@ -85,8 +81,8 @@
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[2] && $currentTuple[2] != "Default")
-                                                            echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[1] . '</option>';
+                                                        if ($currentTuple[3])
+                                                            echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[2] . '</option>';
                                                     }
                                                 ?>
                                             </select>
@@ -114,8 +110,9 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-sm-1"></div>
                                         <div class="col-sm-6">
-                                            <input type="submit" value="Submit" />
+                                            <input type="submit" value="submit" name="submit"/>
                                         </div>
                                     </div>
                                 </div>

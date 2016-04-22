@@ -15,21 +15,6 @@
                     
                     include 'php/Queries.php';
                     $conn =  ConnectToDB();
-
-//                     /* Prepare an insert statement */
-//                     $query = "insert into incomeTransaction(amount, date, FK_user, FK_category) values(?, ?, ?, ?);";
-//                     $stmt = $conn->prepare($query);
-// 
-//                     $stmt->bind_param("ssss", $val1, $val2, $val3, $val4);
-// 
-//                     $val1 = $_POST["amount"];
-//                     $val2 = $_POST["date"];
-//                     $val3 = $_SESSION["loggedInUser"];
-//                     $val4 = $_POST["category"];        
-//                     
-//                     $result = $stmt->execute();
-//                     
-//                     $stmt->close();
                     
                     $amount = $_POST["amount"];
                     $date = $_POST["date"];
@@ -41,16 +26,6 @@
                     $conn->query($query_string);
                     
                     header("Location: index.php");
-                    
-                    // if ($result) {
-                    //     echo 'Success';
-                    //     header("Location: index.php");
-                    // }
-                    // else {
-                    //     echo 'Failed';
-                    //     $_SESSION["errorMessage"] = "Failed creating Income";
-                    //     header("Location: recordIncome.php");
-                    // }
                 }
                 if (isset($_POST['submit']))
                 {
