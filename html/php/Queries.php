@@ -75,7 +75,7 @@
     function AllCategoriesForUser($username)
     {
         $conn = ConnectToDB();
-        $query = ("(select c2.name MetaCategory, c1.name Name, c1.income 'Is Income', c1.goal Goal " .
+        $query = ("(select c1.id, c2.name MetaCategory, c1.name Name, c1.income 'Is Income', c1.goal Goal " .
             " from category as c1, category as c2" .
             " where c1.FK_createdBy = '$username' " .
             " and c2.FK_createdBy = '$username' ".

@@ -8,52 +8,62 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <script src="js/jquery-1.12.2.min.js"></script>
 
-  <?php
-    function record()
-    {
-        session_start();
-        
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
-        
-        $conn->query("CREATE TABLE myCity LIKE City");
-
-        /* Prepare an insert statement */
-        $query = "insert into incomeTransaction(amount, date, FK_user, FK_category) values(?, ?, ?, ?);";
-        $stmt = $conn->prepare($query);
-
-        $stmt->bind_param("ssss", $val1, $val2, $val3, $val4);
-
-        $val1 = $_POST["amount"];
-        $val2 = $_POST["date"];
-        $val3 = $_SESSION["loggedInUser"];
-        $val4 = $_POST["category"];        
-        
-        $result = $stmt->execute();
-        
-        $stmt->close();
-        
-        if ($result) {
-            header("Location: index.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Failed creating Income";
-            header("Location: recordIncome.php");
-        }
-    }
-    if (isset($_POST['submit']))
-    {
-        echo 'Here';
-        record();
-    }
-  ?>
-
 <title> New Income </title>
 
     <?php include 'navbar.php';?>
     <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
+            <?php
+                function record()
+                {
+                    session_start();
+                    
+                    include 'php/Queries.php';
+                    $conn =  ConnectToDB();
+
+//                     /* Prepare an insert statement */
+//                     $query = "insert into incomeTransaction(amount, date, FK_user, FK_category) values(?, ?, ?, ?);";
+//                     $stmt = $conn->prepare($query);
+// 
+//                     $stmt->bind_param("ssss", $val1, $val2, $val3, $val4);
+// 
+//                     $val1 = $_POST["amount"];
+//                     $val2 = $_POST["date"];
+//                     $val3 = $_SESSION["loggedInUser"];
+//                     $val4 = $_POST["category"];        
+//                     
+//                     $result = $stmt->execute();
+//                     
+//                     $stmt->close();
+                    
+                    $amount = $_POST["amount"];
+                    $date = $_POST["date"];
+                    $user = $_SESSION["loggedInUser"];
+                    $category = $_POST["category"];
+                    
+                    $query_string = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
+                    
+                    $conn->query($query_string);
+                    
+                    header("Location: index.php");
+                    
+                    // if ($result) {
+                    //     echo 'Success';
+                    //     header("Location: index.php");
+                    // }
+                    // else {
+                    //     echo 'Failed';
+                    //     $_SESSION["errorMessage"] = "Failed creating Income";
+                    //     header("Location: recordIncome.php");
+                    // }
+                }
+                if (isset($_POST['submit']))
+                {
+                    echo 'Here';
+                    record();
+                }
+            ?>
             <div class="container">
                 <div class="row" style="height: 20vh;"> </div>
                 <div class="row" style="height: 60vh;">
@@ -89,7 +99,7 @@
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
                                                         if ($currentTuple[2] && $currentTuple[2] != "Default")
-                                                            echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[1] . '</option>';
+                                                            echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[2] . '</option>';
                                                     }
                                                 ?>
                                             </select>
