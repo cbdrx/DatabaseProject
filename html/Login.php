@@ -60,16 +60,22 @@
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">CLID:</div>
-                        <div class="col-sm-6" style="padding:1px"><input type="text" name="clid" required></div>
+                        <div class="col-sm-6" style="padding:1px">
+                            <input type="text" name="clid" required>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
                         <div class="col-sm-3">Password: </div>
-                        <div class="col-sm-6" style="padding:1px"><input type="password" name="password" required></div>
+                        <div class="col-sm-6" style="padding:1px">
+                            <input type="password" name="password" required>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-6"><input type="submit" value="submit" name="submit"/></div>
+                        <div class="col-sm-6">
+                            <input type="submit" value="submit" name="submit"/>
+                        </div>
                     </div>
                 </form>
                 <div class="row">

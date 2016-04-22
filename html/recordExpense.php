@@ -16,10 +16,19 @@
         $date = $_POST["date"];
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
+        $business = $_POST["business"];
+        $accountNumber;
+        $checkNumber;
         
         include 'php/Queries.php';
         $conn =  ConnectToDB();
-        $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
+        
+        $querystring = "select accountNumber from checkingAccount where FK_user = '$user';"
+        $result = $conn->query($querystring);
+        $currentTuple = $query_result->fetch_row();
+        $accountNumber = $currentTuple[0];
+        
+        $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
         $result = $conn->query($querystring);
         if ($result) {
             header("Location: index.php");
@@ -81,6 +90,27 @@
                                                     }
                                                 ?>
                                             </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">Business:</div>
+                                        <div class="col-sm-6">
+                                            <select name="business">
+                                                <?php 
+                                                    $query_result = //Get all businesses
+                                                    for($i = 0; $i < $query_result->num_rows; $i++)
+                                                    {
+                                                        $currentTuple = $query_result->fetch_row();
+                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . '</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">Check Number:</div>
+                                        <div class="col-sm-6">
+                                            <input type="text" name="checkNumber" required>
                                         </div>
                                     </div>
                                     <div class="row">
