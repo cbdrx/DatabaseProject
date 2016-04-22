@@ -4,7 +4,7 @@ CREATE TABLE user(
     fullName VARCHAR(255) NOT NULL,
     superUser TINYINT(1) NOT NULL DEFAULT 0,
     primary key (CLID)
-);
+) engine=InnoDB;
 
 create table savingsAccount(
     accountNumber bigint(16) not null,
@@ -12,7 +12,7 @@ create table savingsAccount(
     FK_user varchar(7) not null,
     Primary Key (accountNumber),
     Foreign Key (FK_user) References user (CLID)  
-);
+) engine=InnoDB;
 
 create table checkingAccount(
     accountNumber bigint(16) not null,
@@ -20,12 +20,12 @@ create table checkingAccount(
     FK_user varchar(7) not null,
     Primary Key (accountNumber),
     Foreign Key (FK_user) References user (CLID)  
-);
+) engine=InnoDB;
 
 create table business(
     name varchar(255) not null,
     Primary Key (Name)
-);
+) engine=InnoDB;
 
 create table category(
     id bigint(20) not null auto_increment,
@@ -33,12 +33,12 @@ create table category(
     goal float(16, 2),
     isDefault tinyint(1) not null default 0,
     FK_createdBy varchar(7) not null,
-    FK_parentID bigint(20) not null,
+    FK_parentID bigint(20) null,
     income tinyint(1) not null default 0,
     primary key (id),
     Foreign Key (FK_createdBy) References user (CLID)  ,
     Foreign Key (FK_parentID) References category (id)
-);
+) engine=InnoDB;
 
 
 create table incomeTransaction(
@@ -50,7 +50,7 @@ create table incomeTransaction(
     primary key (id),
     Foreign Key (FK_user) References user (CLID)  ,
     Foreign Key (FK_category) References category (id)  
-);
+) engine=InnoDB;
     
 create table expenseTransaction(
     id bigint(20) not null auto_increment,
@@ -66,7 +66,7 @@ create table expenseTransaction(
     Foreign Key (FK_category) References category (id)  ,
     Foreign Key (FK_business) References business (name)  ,
     Foreign Key (FK_accountNumber) References checkingAccount (accountNumber)  
-);
+) engine=InnoDB;
 
 create table userBusinessCategory(
     FK_business varchar(255) not null,
@@ -76,5 +76,5 @@ create table userBusinessCategory(
     Foreign Key (FK_business) References business (name)  ,
     Foreign Key (FK_user) References user (CLID)  ,
     Foreign Key (FK_category) References category (id)  
-);
+) engine=InnoDB;
 
