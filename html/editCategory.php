@@ -96,7 +96,7 @@
                                                         $result = $conn->query($query);
                                                         if ($result->num_rows > 0)
                                                         {
-                                                            $currentTuple = $query_result->fetch_row();
+                                                            $currentTuple = $result->fetch_row();
                                                             $parentID = $currentTuple[0];
                                                             $parentName = $currentTuple[1];
                                                             echo "<span type=\"text\" name=\"parentID\" value=\"$parentID\">$parentName</span>";
@@ -123,8 +123,8 @@
                                                             $query = ("select id, name from category" .
                                                                         " where FK_createdBy = '$username' and " .
                                                                         " id != '$id' and FK_parentID is null order by name;");
-                                                            $results = $conn->query($query);
-                                                            for($i = 0; $i < $query_result->num_rows; $i++)
+                                                            $result = $conn->query($query);
+                                                            for($i = 0; $i < $result->num_rows; $i++)
                                                             {
                                                                 $currentTuple = $query_result->fetch_row();
                                                                 if ($parentResult->num_rows > 0)
@@ -139,7 +139,7 @@
                                                             }
                                                         echo "</select>";
                                                     }
-                                         echo        "</div>" . 
+                                                echo "</div>" . 
                                                 "</div>";   
                                          $conn->close();                  
                                     ?>
