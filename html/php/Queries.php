@@ -122,8 +122,8 @@
     function AllChecksForUser($username)
     {
         $conn = ConnectToDB();
-        $query = ("select * from ExpenseTransaction E " .
-                    "where E.FK_user = '$username' and E.checkNumber != NULL;");
+        $query = ("select * from expenseTransaction " .
+                    "where FK_user = '$username' and checkNumber is not null;");
         $results = $conn->query($query);
         $conn->close();
         return $results;
