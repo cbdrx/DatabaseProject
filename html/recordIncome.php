@@ -8,13 +8,7 @@
 <link href="css/base.css" type="text/css" rel="stylesheet">
 <script src="js/jquery-1.12.2.min.js"></script>
 
-<title> New Income </title>
-
-    <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
-
-        <body>
-            <?php
+<?php
                 function record()
                 {
                     session_start();
@@ -64,6 +58,13 @@
                     record();
                 }
             ?>
+            
+<title> New Income </title>
+
+    <?php include 'navbar.php';?>
+    <?php include 'php/Queries.php'; ConnectToDB(); ?>
+
+        <body>
             <div class="container">
                 <div class="row" style="height: 20vh;"> </div>
                 <div class="row" style="height: 60vh;">
@@ -92,14 +93,13 @@
                                         <div class="col-sm-6">
                                             <select name="category">
                                                 <?php 
-                                                    include 'php/Queries.php';
                                                     session_start();
                                                     $userName = $_SESSION["loggedInUser"];
                                                     $query_result = AllCategoriesForUser($userName);
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[2] && $currentTuple[2] != "Default")
+                                                        if ($currentTuple[3])
                                                             echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[2] . '</option>';
                                                     }
                                                 ?>
