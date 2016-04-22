@@ -12,15 +12,17 @@
     function edit()
     {
         session_start();
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        
         $catID = $_GET['id'];
         $name = $_POST['name'];
         $goal = $_POST['goal'];
         $parentID = $_POST['parentID'];
         
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
         $querystring = "update category set name = '$name', goal = '$goal', FK_parentID = '$parentID' where id = '$catID'";
-        if ($parentID = "No Parent")
+        if ($parentID == "No Parent")
             $querystring = "update category set name = '$name', goal = '$goal', FK_parentID = null where id = '$catID'";
 
         $result = $conn->query($querystring);
@@ -39,11 +41,11 @@
     }
   ?>
 
-<title> New Income </title>
+<title> Edit Category </title>
 
     <?php include 'navbar.php';?>
+    <?php include 'php/Queries.php'; ConnectToDB(); ?>
     
-
         <body>
             <div class="container">
                 <div class="row" style="height: 20vh;"> </div>
@@ -51,9 +53,9 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8 tableWrapper" style="height: 100%;">
                         <div class="row areaHeader" style="height: 15%;">
-                            <div class="col-sm-6"> <h2> Record New Income </h2> </div>
+                            <div class="col-sm-6"> <h2> Edit Category </h2> </div>
                         </div>
-                        <form class="vparent" style="height: 80%; width: 100%;">
+                        <form action="editCategory.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <?php 
