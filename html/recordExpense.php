@@ -28,10 +28,11 @@
         $result = $conn->query($querystring);
         $currentTuple = $result->fetch_row();
         $accountNumber = $currentTuple[0];
+        echo $accountNumber;
         
         $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
         
-        header("Location: index.php");
+        //header("Location: index.php");
     }
     if (isset($_POST['submit']))
     {
@@ -52,7 +53,7 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8 tableWrapper" style="height: 100%;">
                         <div class="row areaHeader" style="height: 15%;">
-                            <div class="col-sm-6"> <h2> Record New Income </h2> </div>
+                            <div class="col-sm-6"> <h2> Record New Expense </h2> </div>
                         </div>
                         <form action="recordExpense.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
