@@ -57,12 +57,14 @@
     function CategoryTableRowsForUser($username)
     {
         $conn = ConnectToDB();
-        $query = ("select c.FK_parentName, c.name, c.goal, SUM(e.amount)" . 
-            " from category as c, expenseTransaction as e " .
-            " where c.FK_createdBy = '$username'" .
+        $query = ("select c2.name, c1.name, c1.goal, SUM(e.amount)" . 
+            " from category as c1, category as c2, expenseTransaction as e " .
+            " where c1.FK_createdBy = '$username'" .
+            " and c2.FK_createdBy = '$username'" .
             " and  e.FK_user = '$username'" .
-            " and e.FK_category = c.name" .
-            " group by c.FK_parentName, c.name, c.goal");
+            " and e.FK_category = c1.id" .
+            " and c2.id = c1.FK_parentID ".
+            " group by c2.name, c1.name, c1.goal;");
         
         $results = $conn->query($query);
         $conn->close();
@@ -73,10 +75,19 @@
     function AllCategoriesForUser($username)
     {
         $conn = ConnectToDB();
-        $query = ("select FK_parentName MetaCategory, name Name, income 'Is Income', goal Goal " .
-            " from category " .
-            " where FK_createdBy = '$username' " .
-            " order by FK_parentName, name;");
+        $query = ("(select c2.name MetaCategory, c1.name Name, c1.income 'Is Income', c1.goal Goal " .
+            " from category as c1, category as c2" .
+            " where c1.FK_createdBy = '$username' " .
+            " and c2.FK_createdBy = '$username' ".
+            " and c1.FK_parentID = c2.id " .
+            " order by c2.name, c1.name)
+            UNION
+            (select 'Top-Level Category', c1.name Name, c1.income 'Is Income', c1.goal Goal 
+                from category as c1
+            where c1.FK_createdBy = '$username' 
+             and c1.FK_parentID is null
+             order by c1.name)
+            ;");
         $results = $conn->query($query);
         $conn->close();
         return $results;
