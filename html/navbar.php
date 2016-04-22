@@ -20,7 +20,7 @@
                 <a href="recordExpense.php"> New Expense </a>
             </li> 
             <li>
-                <a href="transfers.php"> Transfers </a>
+                <a href="transfer.php"> Transfers </a>
             </li>  
             <li>
                 <a href="Checks.php"> Checks </a>

@@ -8,8 +8,6 @@
   <title>Log In </title>
 
   <?php
-    session_start();
-    session_destroy();
     function deleteAccount()
     {
         session_start();
