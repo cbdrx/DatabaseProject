@@ -90,7 +90,9 @@
                                                     "<div class=\"col-sm-6\">";
                                                     if ($currentTuple[3])
                                                     {
-                                                        $query = ("select c2.id, c2.name from category c1, category c2 where c1.FK_createdBy = '$username' and c1.id = '$id' and c2.id = c1.FK_parentID;");
+                                                        $query = ("select c2.id, c2.name from category c1, category c2" .
+                                                                    " where c1.id = '$id'". 
+                                                                    " and c2.id = c1.FK_parentID;");
                                                         $result = $conn->query($query);
                                                         if ($result->num_rows > 0)
                                                         {
@@ -100,18 +102,40 @@
                                                             echo "<span type=\"text\" name=\"parentID\" value=\"$parentID\">$parentName</span>";
                                                         }
                                                         else
-                                                            echo "<span type=\"text\" name=\"parentID\" value=\"null\">$parentName</span>";
+                                                            echo "<span type=\"text\" name=\"parentID\" value=\"No Parent\">No Parent</span>";
                                                     }
                                                     else
                                                     {
                                                         echo "<select name=\"parentID\">";
-                                                            echo "<option value=\"No Parent\">No Parent</option>";
-                                                            $query = ("select id, name from category where FK_createdBy = '$username' and id != '$id' and FK_parentID is null order by name;");
+                                                        
+                                                            $query = ("select c2.id, c2.name from category c1, category c2" .
+                                                                        " where c1.id = '$id'". 
+                                                                        " and c2.id = c1.FK_parentID;");
+                                                            $parentResult = $conn->query($query);
+                                                            if ($parentResult->num_rows == 0)
+                                                                echo "<option value=\"No Parent\" selected>No Parent</option>";
+                                                            else
+                                                            {
+                                                                $parentTuple = $parentResult->fetch_row();
+                                                                echo "<option value=\"No Parent\">No Parent</option>";
+                                                            }
+                                                            
+                                                            $query = ("select id, name from category" .
+                                                                        " where FK_createdBy = '$username' and " .
+                                                                        " id != '$id' and FK_parentID is null order by name;");
                                                             $results = $conn->query($query);
                                                             for($i = 0; $i < $query_result->num_rows; $i++)
                                                             {
                                                                 $currentTuple = $query_result->fetch_row();
-                                                                echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
+                                                                if ($parentResult->num_rows > 0)
+                                                                {
+                                                                    if (parentTuple[0] == $currentTuple[0])
+                                                                        echo "<option value=\"" . $currentTuple[0] . "\" selected>" . $currentTuple[1] . "</option>";
+                                                                    else
+                                                                        echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
+                                                                }
+                                                                else
+                                                                    echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
                                                             }
                                                         echo "</select>";
                                                     }
