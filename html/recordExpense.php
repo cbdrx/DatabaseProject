@@ -80,7 +80,7 @@
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[3])
+                                                        if (!$currentTuple[3])
                                                             echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[2] . '</option>';
                                                     }
                                                 ?>
@@ -94,11 +94,11 @@
                                                 <?php 
                                                     session_start();
                                                     $userName = $_SESSION["loggedInUser"];
-                                                    $query_result = AllBusinessesForCategory($userName);
+                                                    $query_result = AllBusinessesForUser($userName);
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[1] . '</option>';
+                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
                                                     }
                                                 ?>
                                             </select>

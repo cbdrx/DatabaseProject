@@ -109,8 +109,8 @@
     function AllBusinessesForUser($username)
     {
         $conn = ConnectToDB();
-        $query = ("select FK_business Business, FK_category Category " .
-            " from userBusinessCategory " .
+        $query = ("select ucb.FK_business Business, ucb.FK_category CategoryID, category.name Category" .
+            " from userBusinessCategory ucb, category " .
             " where FK_user = '$username' " .
             " order by FK_business, FK_category;");
         $results = $conn->query($query);
