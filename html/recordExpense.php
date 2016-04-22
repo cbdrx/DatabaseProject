@@ -55,7 +55,7 @@
                         <div class="row areaHeader" style="height: 15%;">
                             <div class="col-sm-6"> <h2> Record New Income </h2> </div>
                         </div>
-                        <form action="recordIncome.php" method="post" class="vparent" style="height: 80%; width: 100%;">
+                        <form action="recordExpense.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <div class="row">
