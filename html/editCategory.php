@@ -30,14 +30,16 @@
         if ($parentID == "No Parent" && $goal != "")
             $querystring = "update category set name = '$name', goal = $goal, FK_parentID = null where id = '$catID'";
 
+        echo $querystring;
+
         $result = $conn->query($querystring);
-        if ($result) {
-            header("Location: categories.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Failed creating Income";
-            header("Location: categories.php");
-        }
+        // if ($result) {
+        //     header("Location: categories.php");
+        // }
+        // else {
+        //     $_SESSION["errorMessage"] = "Failed creating Income";
+        //     header("Location: categories.php");
+        // }
     }
     if (isset($_POST['submit']))
     {
