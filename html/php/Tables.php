@@ -86,7 +86,7 @@ function BuildBusinessTable($username)
             " where FK_user = '$username' " .
             " and FK_category = category.id" .
             " order by FK_business, FK_category;");
-    $query_results = $conn->query($query);
+    $query_result = $conn->query($query);
     $conn->close();
         
     $numFields = $query_result->field_count;
