@@ -19,17 +19,18 @@
         $goal = $_POST["goal"];
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
+        $income = $_POST["income"];
         $parentCategory = $_POST["parentCategory"];
         //$query = "select FK_createdBy from Category where id = '$category' and FK_parentID = '$parentCategory'';";
         //$parentCategoryCreator = $conn->query($query);
         //$currentTuple = $parentCategoryCreate->fetch_row();
     
         if ($parentCategory == "No Parent")
-            $querystring = "insert into Category(categoryName, FK_createdBy, goal, default, FK_parentName, FK_parentCreatedBy) " . 
-                        " values('$category', '$user', '$goal', '0', null, null);";
+            $querystring = "insert into category(name, FK_createdBy, goal, isDefault, FK_parentID, income) " . 
+                        " values('$category', '$user', '$goal', '0', null, '$income');";
         else
-            $querystring = "insert into Category(categoryName, FK_createdBy, goal, default, FK_parentName, FK_parentCreatedBy) " . 
-                        " values('$category', '$user', '$goal', '0', '$parentCategory', '$user');";
+            $querystring = "insert into category(name, FK_createdBy, goal, isDefault, FK_parentID, income) " . 
+                        " values('$category', '$user', '$goal', '0', '$parentCategory', '$income');";
 
 	    echo $querystring;        
 
@@ -98,6 +99,12 @@
                                         <div class="col-sm-6">Goal:</div>
                                         <div class="col-sm-6">
                                             <input type="text" name="goal" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">Income?:</div>
+                                        <div class="col-sm-6">
+                                            <input type="checkbox" name="income" required>
                                         </div>
                                     </div>
                                     <div class="row">
