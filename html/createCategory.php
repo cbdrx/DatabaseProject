@@ -80,7 +80,7 @@
                                                     $conn =  ConnectToDB();
                                                     
                                                     $query = ("select id, name from category" .
-                                                                " where FK_createdBy = '$username' and " .
+                                                                " where FK_createdBy = '$userName' and " .
                                                                 " FK_parentID is null order by name;");
                                                     $result = $conn->query($query);
                                                     for($i = 0; $i < $result->num_rows; $i++)
