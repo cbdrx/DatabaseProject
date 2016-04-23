@@ -13,7 +13,16 @@
     function deleteAccountPage()
     {
         $username = $_SESSION["loggedInUser"];
-        DeleteAccount($username);
+        if(DeleteAccount($username))
+        {
+            $_SESSION["errorMessage"] = "Successfully Deleted Account";
+            session_destroy();
+            header("Location: Login.php");
+        }
+        else
+        {
+            $_SESSION["errorMessage"] = "Failed to delete account";
+        }
     }
     if (isset($_POST['delete']))
     {
@@ -43,7 +52,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-6"><input type="submit" value="delete" name="Delete"/></div>
+                        <div class="col-sm-6"><input type="submit" value="delete" name="delete"/></div>
                     </div>
                 </form>
                 <div class="row">

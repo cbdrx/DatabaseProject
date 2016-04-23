@@ -132,24 +132,25 @@
     function DeleteAccount($username)
     {
         $conn = ConnectToDB();
-        $query = ("delete from userBusinessCategory where FK_user = '$username';");
+        $query = ("delete from userBusinessCategory where FK_user = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from expenseTransaction where FK_user = '$username';");
+        $query = ("delete from expenseTransaction where FK_user = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from incomeTransaction where FK_user = '$username';");
+        $query = ("delete from incomeTransaction where FK_user = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from category where FK_createdBy = '$username' and FK_parentID is not null;");
+        $query = ("delete from category where FK_createdBy = '".$username."' and FK_parentID is not null;");
         $results = $conn->query($query);
-        $query = ("delete from category where FK_createdBy = '$username';");
+        $query = ("delete from category where FK_createdBy = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from savingsAccount where FK_user = '$username';");
+        $query = ("delete from savingsAccount where FK_user = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from checkingAccount where FK_user = '$username';");
+        $query = ("delete from checkingAccount where FK_user = '".$username."';");
         $results = $conn->query($query);
-        $query = ("delete from user where CLID = '$username';");
+        $query = ("delete from user where CLID = '".$username."';");
         $results = $conn->query($query);
         
         $conn->close();
+        return true;
     }
     
     function GetNextCategoryID()
