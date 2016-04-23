@@ -75,6 +75,8 @@
                                             <select name="parentCategory" required>
                                                 <option value="No Parent" selected>No Parent</option>;
                                                 <?php        
+                                                    session_start();
+                                                    $userName = $_SESSION["loggedInUser"];
                                                     $conn =  ConnectToDB();
                                                     
                                                     $query = ("select id, name from category" .
@@ -86,6 +88,8 @@
                                                         $currentTuple = $query_result->fetch_row();
                                                         echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
                                                     }
+                                                    
+                                                    $conn->close();
                                                 ?>
                                             </select>
                                         </div>
