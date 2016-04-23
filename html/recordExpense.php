@@ -21,17 +21,20 @@
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
         $business = $_POST["business"];
-        $accountNumber;
-        $checkNumber; 
+        $accountNumber; 
+        $checkNumber = $_POST["checkNumber"]; 
         
         $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
         $result = $conn->query($querystring);
         $currentTuple = $result->fetch_row();
         $accountNumber = $currentTuple[0];
         
-        $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
+        if ($accountNumber == "")
+                    $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', null, '$checkNumber');";
+        else
+            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
 
-	echo $querystring;        
+	    echo $querystring;        
 
         $conn->query($querystring);
         
@@ -111,7 +114,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">Check Number:</div>
                                         <div class="col-sm-6">
-                                            <input type="text" name="checkNumber" required>
+                                            <input type="text" name="checkNumber">
                                         </div>
                                     </div>
                                     <div class="row">
