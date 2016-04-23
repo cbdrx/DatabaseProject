@@ -62,7 +62,7 @@
                                     <?php 
                                          session_start();
                                          $userName = $_SESSION["loggedInUser"];
-                                         $bisID = $_GET['bidID'];
+                                         $bisID = $_GET['bisID'];
                                          $catID = $_GET['catID'];
                                          $conn =  ConnectToDB();
                                          //$querystring = "select FK_business, FK_category, from userBusinessCategory where FK_business = '$bisID' and FK_user = '$userName';";
