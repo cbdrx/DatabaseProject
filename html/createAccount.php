@@ -9,84 +9,116 @@
   <title> Create Account </title>
 
   <?php
+    include 'php/Queries.php';
     session_start();
     session_destroy();
     function createAccount()
     {
         session_start();
-        $username = $_POST["clid"];
-        $name = $_POST["name"];
-        $password = $_POST["password"];
-        $checkingnum = $_POST["checkingaccountnumber"];
-        $checkingbalance = $_POST["checkingaccountbalance"];
-        $savingsnum = $_POST["savingsaccountnumber"];
-        $savingsbalance = $_POST["savingsaccountbalance"];
         
-        include 'php/Queries.php';
         $conn =  ConnectToDB();
-		
+        $allNecessaryFieldsSet = isset($_POST["clid"]) && isset($_POST["name"]) && isset($_POST["password"])  
+            && isset($_POST["checkingaccountnumber"]);
+        
+		//We need to check if the necessary primary keys are already in use
 						
-						
-						
-		if (isset($_POST["savingsaccountnumber"]))
+		$querySstring = "";
+
+        if($allNecessaryFieldsSet)
         {
-            if (isset($_POST["savingsaccountbalance"]))
+            $username = $_POST["clid"];
+            $name = $_POST["name"];
+            $password = $_POST["password"];
+            $checkingnum = $_POST["checkingaccountnumber"];
+            
+            $queryString = "select * from user where CLID = '$username';";
+            $userNonExist = ($conn->query($queryString)->num_rows == 0);
+            $queryString = "select * from checkingAccount where accountNumber = '$checkingnum';";
+            $checkingNonExist = ($conn->query($queryString)->num_rows == 0);
+            if(isset($_POST["savingsaccountnumber"]))
             {
-                $querystring = "insert into user values ('$username', '$password', '$name', 0); " .
-						" insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username'); " .
-						" insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');";
+                $savingsnum = $_POST["savingsaccountnumber"];
+                $queryString = "select * from savingsAccount where accountNumber = '$savingsnum';";
+                $savingsNonExist = ($conn->query($queryString)->num_rows == 0);
+                if($userNonExist && $checkingNonExist && $savingsNonExist)
+                {
+                    $checkingbalance = 0.0;
+                    $savingsbalance = 0.0;
+                    if(isset($_POST["checkingaccountbalance"]) && is_numeric($_POST["checkingAccountbalance"]))
+                    {
+                        $checkingbalance = $_POST["checkingaccountbalance"];
+                    }
+                    
+                    if(isset($_POST["savingsaccountbalance"]) && is_numeric($_POST["savingsAccountbalance"]))
+                    {
+                        $savingsbalance = $_POST["savingsaccountbalance"];
+                    }
+                    
+                    $queryString = "insert into user values ('$username', '$password', '$name', 0); ";
+                    $conn->query($queryString);
+                    $queryString = " insert into checkingAccount values ('$checkingnum', '$checkingbalance', '$username'); ";
+                    $conn->query($queryString);
+                    $queryString = " insert into savingsAccount values ('$savingsnum', '$savingsbalance', '$username');";
+                    $conn->query($queryString);
+                    if(AddDefaultCategoriesForUser($username))
+                    {
+                        
+                        $_SESSION["errorMessage"] = "Account Successfully Created!";                
+                    }
+                    else
+                    {
+                        $queryString = "delete from checkingAccount where accountNumber = '$checkingnum';";
+                        $conn->query($queryString);
+                        $queryString = "delete from savingsAccount where accountNumber = '$savingsnum';";
+                        $conn->query($queryString);
+                        $queryString = "delete from user where CLID = '$username';";
+                        $conn->query($queryString);
+                    }
+                }
+                else
+                {
+                $_SESSION["errorMessage"] = "An error has occurred";
+                    
+                }
+            }
+            else if($userNonExist && $checkingNonExist)
+            {
+                $checkingbalance = 0.0;
+                if(isset($_POST["checkingaccountbalance"]) && is_numeric($_POST["checkingAccountbalance"]))
+                {
+                    $checkingbalance = $_POST["checkingaccountbalance"];
+                }
+                $queryString = "insert into user values ('$username', '$password', '$name', 0); ";
+                $conn->query($queryString);
+                $queryString = " insert into checkingAccount values ('$checkingnum', '$checkingbalance', '$username'); ";
+                $conn->query($queryString);
+                if(AddDefaultCategoriesForUser($username))
+                {
+                    
+                    $_SESSION["errorMessage"] = "Account Successfully Created!";                
+                }
+                else
+                {
+                    $queryString = "delete from checkingAccount where accountNumber = '$checkingnum';";
+                    $conn->query($queryString);
+                    $queryString = "delete from user where CLID = '$username';";
+                    $conn->query($queryString);
+                }
+                
             }
             else
             {
-                $querystring = "insert into user values ('$username', '$password', '$name', 0); 
-						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username';
-						insert into savingsAccount values('$savingsnum', 0.00, '$username');";
+                $_SESSION["errorMessage"] = "An error has occurred";
             }
-            //$result = $conn->query($querystring);
-			if($conn->query($querystring) == FALSE)
-			{
-				$_SESSION["errorMessage"] = "An error has occurred";
-			}
+            //$querystring = "select * from user where CLID = '$username';";
+            //$savingsNonExist = (($conn->query($queryString))->num_rows == 0);
+            
         }
-		else
-		{
-			$querystring = "insert into user values ('$username', '$password', '$name', 0); 
-						insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');";
-			if($conn->query($querystring) == FALSE)
-			{
-				$_SESSION["errorMessage"] = "An error has occured";
-			}
-		}
-						
-		/*		
-		if($conn->query($querystring) == FALSE)
-		{
-			$_SESSION["errorMessage"] = "Error in creating account. Either the username is already taken,
-											The checking number is already taken,
-											or the savings number is already taken";
-		}
-        //$result = $conn->query($querystring);
-        $querystring = "insert into checkingAccount values('$checkingnum', '$checkingbalance', '$username');"
-        if($conn->query($querystring) == FALSE)
-		{
-			$_SESSION["errorMessage"] = "That checking number already exists";
-		}
-		//$result = $conn->query($querystring);
-		
-        if (isset($_POST["savingsaccountnumber"];))
+        else
         {
-            if (isset($_POST["savingsaccountbalance"]))
-                $querystring = "insert into savingsAccount values('$savingsnum', '$savingsbalance', '$username');"
-            else
-                $querystring = "insert into savingsAccount values('$savingsnum', 0.00, '$username');"
-            //$result = $conn->query($querystring);
-			if($conn->query($querystring) == FALSE)
-			{
-				$_SESSION["errorMessage"] = "An error has occurred";
-			}
+            $_SESSION["errorMessage"] = "A required field was not filled out";
         }
-        */
-        //Do a check for success here? each time? idk.
+				
         header("Location: Login.php");
     }
     if (isset($_POST['submit']))

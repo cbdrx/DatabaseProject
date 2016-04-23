@@ -8,19 +8,18 @@
   <title>Log In </title>
 
   <?php
-    function deleteAccount()
+    session_start();
+    include 'php/Queries.php';
+    function deleteAccountPage()
     {
-        session_start();
         $username = $_SESSION["loggedInUser"];
         
-        
-        include 'php/Queries.php';
             DeleteAccount($username);
     }
     if (isset($_POST['delete']))
     {
         echo 'Here';
-        DeleteAccount();
+        deleteAccountPage();
     }
   ?>
 
@@ -42,16 +41,6 @@
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
                         <?php echo $_SESSION["errorMessage"] ?>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-3">CLID:</div>
-                        <div class="col-sm-6" style="padding:1px"><input type="text" name="clid" required></div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-1"></div>
-                        <div class="col-sm-3">Password: </div>
-                        <div class="col-sm-6" style="padding:1px"><input type="password" name="password" required></div>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>

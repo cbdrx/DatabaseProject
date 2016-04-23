@@ -134,7 +134,6 @@
         $conn = ConnectToDB();
         $query = ("delete from userBusinessCategory where FK_user = '$username';");
         $results = $conn->query($query);
-        
         $query = ("delete from expenseTransaction where FK_user = '$username';");
         $results = $conn->query($query);
         $query = ("delete from incomeTransaction where FK_user = '$username';");
@@ -150,6 +149,77 @@
         
         $conn->close();
         return $results;
+    }
+    
+    function GetNextCategoryID()
+    {
+        $conn = ConnectToDB();
+        $query = "select Max(id) from category";
+        $result = $conn->query($query);
+        $currentMax = $result->fetch_row();
+        $conn->close();
+        return ($currentMax[0] + 1);
+    }
+    
+    function AddDefaultCategoriesForUser($username)
+    {
+        $conn = ConnectToDB();
+        $startAt = GetNextCategoryID();
+        $query = ("
+        insert into category (id, name, isDefault, FK_createdBy, FK_parentID, income)
+        values('" . ($startAt + 0) . "','Paycheck',  '1', '$username', null,  '1'),
+        ('" . ($startAt + 1) . "','Miscellaneous Income',  '1', '$username', null,  '1'),
+        ('" . ($startAt + 2) . "','Automobile', '1', '$username', null, '0'),
+        ('" . ($startAt + 6) . "','Charity',  '1', '$username', null,  '0'),
+        ('" . ($startAt + 7) . "','Clothing',  '1', '$username', null,  '0'),
+        ('" . ($startAt + 8) . "','Education', '1', '$username', null, '0'),
+        ('" . ($startAt + 12) . "','Food', '1', '$username', null, '0'),
+        ('" . ($startAt + 15) . "','Healthcare',  '1', '$username', null,  '0'),
+        ('" . ($startAt + 19) . "','Household','1', '$username', null,  '0'),
+        ('" . ($startAt + 22) . "','Insurance', '1', '$username',null,'0'),
+        ('" . ($startAt + 25) . "','Entertainment',  '1', '$username', null, '0'),
+        ('" . ($startAt + 30) . "','Transfer to Savings', '1', '$username', null, '0'),
+        ('" . ($startAt + 31) . "','Miscellaneous Expense', '1', '$username', null, '0'); ");
+        if($conn->query($query))
+        {
+
+            $query = ("
+            insert into category (id, name, isDefault, FK_createdBy, FK_parentID, income)
+            values('" . ($startAt + 3) . "','Gasoline', '1', '$username', '" . ($startAt + 2) . "', '0'),
+            ('" . ($startAt + 4) . "','Maintenance', '1', '$username', '" . ($startAt + 2) . "', '0'),
+            ('" . ($startAt + 5) . "','Auto loan payment', '1', '$username', '" . ($startAt + 2) . "',  '0'),
+            ('" . ($startAt + 9) . "','Tuition',  '1', '$username', '" . ($startAt + 8) . "', '0'),
+            ('" . ($startAt + 10) . "','Books', '1', '$username', '" . ($startAt + 8) . "', '0'),
+            ('" . ($startAt + 11) . "','Student Loan Payment',  '1', '$username', '" . ($startAt + 8) . "',  '0'),
+            ('" . ($startAt + 13) . "','Groceries', '1', '$username', '" . ($startAt + 12) . "', '0'),
+            ('" . ($startAt + 14) . "','Dining Out',  '1', '$username', '" . ($startAt + 12) . "', '0'),
+            ('" . ($startAt + 16) . "','Dental',  '1', '$username', '" . ($startAt + 16) . "', '0'),
+            ('" . ($startAt + 17) . "','Vision', '1', '$username', '" . ($startAt + 16) . "', '0'),
+            ('" . ($startAt + 18) . "','Medical', '1', '$username', '" . ($startAt + 16) . "',  '0'),
+            ('" . ($startAt + 20) . "','Rent / Mortgage Payment','1', '$username', '" . ($startAt + 19) . "',  '0'),
+            ('" . ($startAt + 21) . "','Utilities', '1', '$username', '" . ($startAt + 19) . "', '0'),
+            ('" . ($startAt + 23) . "','Automobile', '1', '$username', '" . ($startAt + 22) . "',  '0'),
+            ('" . ($startAt + 24) . "','Health', '1', '$username', '" . ($startAt + 22) . "',  '0'),
+            ('" . ($startAt + 26) . "','Reading Material', '1', '$username', '" . ($startAt + 25) . "', '0'),
+            ('" . ($startAt + 27) . "','Movies', '1', '$username', '" . ($startAt + 25) . "',  '0'),
+            ('" . ($startAt + 28) . "','Sporting Events',  '1', '$username', '" . ($startAt + 25) . "',  '0'),
+            ('" . ($startAt + 29) . "','Sporting Goods', '1', '$username', '" . ($startAt + 25) . "',  '0');");
+            if($conn->query($query))
+            {
+                $conn->close();
+                return true;
+            }
+            else
+            {
+                $conn->close();
+                return false;
+            }
+        }
+        else 
+        {
+            $conn->close();
+            return false;
+        }
     }
     
     

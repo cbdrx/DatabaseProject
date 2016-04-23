@@ -24,7 +24,17 @@
         if ($numRows > 0) {
             $_SESSION["loggedInUser"] = $username;
             $_SESSION["errorMessage"] = "";
-            header("Location: index.php");
+            $userTuple = $result->fetch_row();
+            if($userTuple[3] == true)
+            {
+                $_SESSION["su"] = true;
+                header("Location: superHome.php");
+            }
+            else
+            {
+                $_SESSION["su"] = false;
+                header("Location: index.php");
+            }
         }
         else {
             $_SESSION["errorMessage"] = "Incorrect CLID and password combination.";
