@@ -74,7 +74,7 @@
                                     <div class="row">
                                         <div class="col-sm-6">Parent Category:</div>
                                         <div class="col-sm-6">
-                                            <select name="parentCategory" required>
+                                            <select name="category" required>
                                                 <option value="No Parent" selected>No Parent</option>;
                                                 <?php        
                                                     session_start();
