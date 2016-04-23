@@ -57,7 +57,17 @@
         {
         
         }
-    }
+        $conn->close();
+        
+        header("Location: businesses.php");
+        // if ($result) {
+        //     header("Location: businesses.php");
+        // }
+        // else {
+        //     $_SESSION["errorMessage"] = "Failed creating Income";
+        //     header("Location: businesses.php");
+        // }
+   }
     if (isset($_POST['submit']))
     {
         echo 'Here';

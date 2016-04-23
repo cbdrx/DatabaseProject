@@ -10,6 +10,7 @@
     $querystring = "select * from user where CLID = " . $username . "and password = " . $password . ";";
     
     $result = $conn->query($querystring);
+    $conn->close();
     if ($result->num_rows() > 0) {
         $_SESSION["loggedInUser"] = $username;
         $_SESSION["errorMessage"] = "";

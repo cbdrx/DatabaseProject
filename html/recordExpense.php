@@ -51,6 +51,7 @@
         //update the number value
         $querystring = "update checkingAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
         $conn->query($querystring);
+        $conn->close();
         
         header("Location: index.php");
     }

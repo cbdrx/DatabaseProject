@@ -35,6 +35,8 @@
                     $querystring = "update checkingAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
                     $conn->query($querystring);
                                 
+                    $conn->close();
+                    
                     header("Location: index.php");
                 }
                 if (isset($_POST['submit']))

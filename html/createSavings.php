@@ -5,29 +5,27 @@
   <link href="style/login.css" type="text/css" rel="stylesheet">
   <script src="js/jquery-1.12.2.min.js"></script>
 
-  <title>Delete Account</title>
+  <title>Create Savings Account</title>
 
   <?php
     session_start();
     include 'php/Queries.php';
-    function deleteAccountPage()
+    function createSavingsAccount()
     {
         $username = $_SESSION["loggedInUser"];
-        if(DeleteAccount($username))
-        {
-            $_SESSION["errorMessage"] = "Successfully Deleted Account";
-            session_destroy();
-            header("Location: Login.php");
-        }
-        else
-        {
-            $_SESSION["errorMessage"] = "Failed to delete account";
-        }
+        $accountNum = $_PSOT["accountNum"]
+        $query = "insert into savingsAccount(accountNumber, balance, FK_user) " .
+                    " values( '$accountNum', '0.00', '$username');";
+        $conn->query($query);
+       
+       $conn->close(); 
+        
+        header("Location: createSavings.php");
     }
-    if (isset($_POST['delete']))
+    if (isset($_POST['create']))
     {
         echo 'Here';
-        deleteAccountPage();
+        createSavingsAccount();
     }
   ?>
 
@@ -36,7 +34,7 @@
       <div class="col-sm-3">
       </div>
       <div class="col-sm-8">
-      <h1>Delete your account</h1>
+      <h1>Create a Savings Account</h1>
       </div>
       </div>
     <div class="row" style="height:33vh">
@@ -45,16 +43,25 @@
             </div>
         <div class="col-sm-8">
             <div class="roundGrayLoginBox">
-                <form action="deleteAccount.php" method="post">
+                <form action="createSavings.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
                         <?php echo $_SESSION["errorMessage"] ?>
                     </div>
+                    <!-- Account Number -->
+                    <div class="row">
+                        <div class="col-sm-6">Saving Account Number:</div>
+                        <div class="col-sm-6">
+                            <input type="text" name="accountNum" required>
+                        </div>
+                    </div>
+                    <!-- Create Button -->
                     <div class="row">
                         <div class="col-sm-1"></div>
-                        <div class="col-sm-6"><input type="submit" value="delete" name="delete"/></div>
+                        <div class="col-sm-6"><input type="submit" value="create" name="create"/></div>
                     </div>
                 </form>
+                <!-- Back to summary link -->
                 <div class="row">
                     <div class="col-sm-1"></div>
                     <div class="col-sm-6"><a href="index.php">Back To Summary</div>

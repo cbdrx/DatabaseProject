@@ -21,6 +21,7 @@
         $querystring = "select * from user where CLID = '$username' and password = '$password';";
         $result = $conn->query($querystring);
         $numRows = $result->num_rows;
+        $conn->close();
         if ($numRows > 0) {
             $_SESSION["loggedInUser"] = $username;
             $_SESSION["errorMessage"] = "";
@@ -65,7 +66,7 @@
                 <form action="Login.php" method="post">
                     <div class="row" style="height:2vh"></div>
                     <div class="row">
-                        <?php echo $_SESSION["errorMessage"] ?>
+                        <?php //echo $_SESSION["errorMessage"] ?>
                     </div>
                     <div class="row">
                         <div class="col-sm-1"></div>
