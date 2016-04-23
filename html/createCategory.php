@@ -75,6 +75,8 @@
                                             <select name="parentCategory" required>
                                                 <option value="No Parent" selected>No Parent</option>;
                                                 <?php        
+                                                    $conn =  ConnectToDB();
+                                                    
                                                     $query = ("select id, name from category" .
                                                                 " where FK_createdBy = '$username' and " .
                                                                 " FK_parentID is null order by name;");
@@ -83,7 +85,7 @@
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
                                                         echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
-                                                     }
+                                                    }
                                                 ?>
                                             </select>
                                         </div>
