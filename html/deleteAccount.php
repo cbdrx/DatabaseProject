@@ -29,7 +29,7 @@
       <div class="col-sm-3">
       </div>
       <div class="col-sm-8">
-      <h1>Log in to your account</h1>
+      <h1>Delete your account</h1>
       </div>
       </div>
     <div class="row" style="height:33vh">
