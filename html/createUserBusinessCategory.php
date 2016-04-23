@@ -21,9 +21,10 @@
         $category = $_POST["category"];
         $business = $_POST["business"];
         
-        $query = "select * from business where name = '$business';";
+        $query = "select count(*) from business where name = '$business';";
         $res = $conn->query($query);
-        if ($res->num_rows == 0)
+        $tup = $res->fetch_row();
+        if ($tup[0] == 0)
         {
             $res = "insert into business values ('$business')";
             $conn->query($query);
