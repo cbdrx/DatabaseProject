@@ -33,6 +33,8 @@
         echo $querystring;
 
         $result = $conn->query($querystring);
+        
+        header("Location: categories.php");
         // if ($result) {
         //     header("Location: categories.php");
         // }

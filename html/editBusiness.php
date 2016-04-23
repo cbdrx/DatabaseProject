@@ -12,23 +12,28 @@
     function edit()
     {
         session_start();
-        $bisID = $_GET['id'];
+        
+        include 'php/Queries.php';
+        $conn =  ConnectToDB();
+        
+        $bisID = $_POST['bisID'];
         $user = $_SESSION['loggedInUser'];
         $category = $_POST['category'];
         $parentID = $_POST['parentID'];
         
-        include 'php/Queries.php';
-        $conn =  ConnectToDB();
+        
         $querystring = "update business set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user'";
 
         $result = $conn->query($querystring);
-        if ($result) {
-            header("Location: businesses.php");
-        }
-        else {
-            $_SESSION["errorMessage"] = "Failed creating Income";
-            header("Location: businesses.php");
-        }
+        
+        header("Location: businesses.php");
+        // if ($result) {
+        //     header("Location: businesses.php");
+        // }
+        // else {
+        //     $_SESSION["errorMessage"] = "Failed creating Income";
+        //     header("Location: businesses.php");
+        // }
     }
     if (isset($_POST['submit']))
     {
@@ -40,7 +45,7 @@
 <title> New Income </title>
 
     <?php include 'navbar.php';?>
-    
+    <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
             <div class="container">
@@ -51,7 +56,7 @@
                         <div class="row areaHeader" style="height: 15%;">
                             <div class="col-sm-6"> <h2> Record New Income </h2> </div>
                         </div>
-                        <form class="vparent" style="height: 80%; width: 100%;">
+                        <form action="editBusiness.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
                                     <?php 
@@ -63,41 +68,31 @@
                                          $result = $conn->query($querystring);
                                          $currentTuple = $result->fetch_row();
                                          
-                                         $id = $currentTuple[0]; $name = $currentTuple[0]; $goal = $currentTuple[0];
-                                         $isDefault = $currentTuple[0]; $parentID = $currentTuple[0];
+                                         $bisID = $currentTuple[0]; $catID = $currentTuple[1];
                                          
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Business:</div>" .
                                                     "<div class=\"col-sm-6\">";
                                                         echo "<input type=\"text\" name=\"business\" value=\"'$bisID'\" readonly=\"readonly\">";
                                          echo        "</div>" . 
-                                                "</div>";
-                                         echo  "<div class=\"row\"> \n" . 
-                                                    "<div class=\"col-sm-6\">Goal:</div>" .
-                                                    "<div class=\"col-sm-6\">";
-                                                        echo "<input type=\"text\" name=\"goal\" value=\"'$goal'\">";
-                                         echo        "</div>" . 
-                                                "</div>";   
-                                         echo  "<div class=\"row\"> \n" . 
-                                                    "<div class=\"col-sm-6\">Parent Category:</div>" .
-                                                    "<div class=\"col-sm-6\">";
-                                                    if ($currentTuple[3])
-                                                        echo "<input type=\"text\" name=\"parentID\" value=\"'$parentID'\" readonly=\"readonly\">";
-                                                    else
+                                                "</div>"; 
+                                         echo "<div class=\"row\">" .
+                                                    "<div class=\"col-sm-6\">Category:</div>" .
+                                                    "<div class=\"col-sm-6\">" .
+                                                        "<select name=\"category\">"; 
+                                                    $query_result = AllCategoriesForUser($userName);
+                                                    for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
-                                                        echo "<select name=\"parentID\">";
-                                                            echo "<option value=\"No Parent\">No Parent</option>";
-                                                            $query = ("select id, name from category where FK_createdBy = '$username' and id != '$id' and FK_parentID = null order by name;");
-                                                            $results = $conn->query($query);
-                                                            for($i = 0; $i < $query_result->num_rows; $i++)
-                                                            {
-                                                                $currentTuple = $query_result->fetch_row();
-                                                                echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
-                                                            }
-                                                        echo "</select>";
+                                                        $currentTuple = $query_result->fetch_row();
+                                                        if ($currentTuple[0] == $conID)
+                                                            echo '<option value="' . $currentTuple[0] . '" selected>' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
+                                                        else
+                                                            echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
                                                     }
-                                         echo        "</div>" . 
-                                                "</div>";   
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div> 
                                          $conn->close();                  
                                     ?>
                                     <div class="row">
