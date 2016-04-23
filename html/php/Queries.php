@@ -138,6 +138,8 @@
         $results = $conn->query($query);
         $query = ("delete from incomeTransaction where FK_user = '$username';");
         $results = $conn->query($query);
+        $query = ("delete from category where FK_createdBy = '$username' and FK_parentID is not null;");
+        $results = $conn->query($query);
         $query = ("delete from category where FK_createdBy = '$username';");
         $results = $conn->query($query);
         $query = ("delete from savingsAccount where FK_user = '$username';");
@@ -148,7 +150,6 @@
         $results = $conn->query($query);
         
         $conn->close();
-        return $results;
     }
     
     function GetNextCategoryID()
@@ -193,9 +194,9 @@
             ('" . ($startAt + 11) . "','Student Loan Payment',  '1', '$username', '" . ($startAt + 8) . "',  '0'),
             ('" . ($startAt + 13) . "','Groceries', '1', '$username', '" . ($startAt + 12) . "', '0'),
             ('" . ($startAt + 14) . "','Dining Out',  '1', '$username', '" . ($startAt + 12) . "', '0'),
-            ('" . ($startAt + 16) . "','Dental',  '1', '$username', '" . ($startAt + 16) . "', '0'),
-            ('" . ($startAt + 17) . "','Vision', '1', '$username', '" . ($startAt + 16) . "', '0'),
-            ('" . ($startAt + 18) . "','Medical', '1', '$username', '" . ($startAt + 16) . "',  '0'),
+            ('" . ($startAt + 16) . "','Dental',  '1', '$username', '" . ($startAt + 15) . "', '0'),
+            ('" . ($startAt + 17) . "','Vision', '1', '$username', '" . ($startAt + 15) . "', '0'),
+            ('" . ($startAt + 18) . "','Medical', '1', '$username', '" . ($startAt + 15) . "',  '0'),
             ('" . ($startAt + 20) . "','Rent / Mortgage Payment','1', '$username', '" . ($startAt + 19) . "',  '0'),
             ('" . ($startAt + 21) . "','Utilities', '1', '$username', '" . ($startAt + 19) . "', '0'),
             ('" . ($startAt + 23) . "','Automobile', '1', '$username', '" . ($startAt + 22) . "',  '0'),
@@ -220,6 +221,14 @@
             $conn->close();
             return false;
         }
+    }
+    
+    function AllUsers()
+    {
+        $conn = ConnectToDB();
+        $result = $conn->query("select * from user");
+        $conn->close();
+        return $result;
     }
     
     

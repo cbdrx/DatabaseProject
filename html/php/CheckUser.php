@@ -10,4 +10,15 @@ function isUserLoggedIn()
        return;
    };
 }
+
+function userIsSU()
+{
+   if($_SESSION["su"] == true) return;
+   else
+   {
+       header("Location: Login.php");
+       exit();
+       return;
+   };
+}
 ?>

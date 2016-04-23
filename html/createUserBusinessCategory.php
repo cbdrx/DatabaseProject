@@ -9,13 +9,14 @@
 <script src="js/jquery-1.12.2.min.js"></script>
 
   <?php
-    function createBusinessClassification()
-    {
+  
         session_start();
         
         include 'php/Queries.php';
-        $conn =  ConnectToDB();
+    function createBusinessClassification()
+    {
 
+        $conn =  ConnectToDB();
         
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
@@ -26,7 +27,7 @@
         $tup = $res->fetch_row();
         if ($tup[0] == 0)
         {
-            $res = "insert into business values ('$business')";
+            $res = "insert into business values ('$business');";
             $conn->query($query);
         }
         
@@ -52,7 +53,6 @@
 <title> New Business Classification </title>
 
     <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
             <div class="container">
@@ -78,7 +78,6 @@
                                             <select name="category" required>
                                                 <option value="No Parent" selected>No Parent</option>;
                                                 <?php        
-                                                    session_start();
                                                     $userName = $_SESSION["loggedInUser"];
                                                     $conn =  ConnectToDB();
                                                     

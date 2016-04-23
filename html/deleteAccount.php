@@ -13,8 +13,7 @@
     function deleteAccountPage()
     {
         $username = $_SESSION["loggedInUser"];
-        
-            DeleteAccount($username);
+        DeleteAccount($username);
     }
     if (isset($_POST['delete']))
     {
@@ -49,7 +48,7 @@
                 </form>
                 <div class="row">
                     <div class="col-sm-1"></div>
-                    <div class="col-sm-6"><a href="createAccount.php">Create Account</div>
+                    <div class="col-sm-6"><a href="index.php">Back To Summary</div>
                 </div>
                 </div> 
             </div>
