@@ -32,6 +32,27 @@
             $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
             $result = $conn->query($querystring);
             if ($result) {
+            
+                $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
+                $result = $conn->query($querystring);
+                $currentTuple = $result->fetch_row();
+                $accountNumber = $currentTuple[0];
+                
+                //update the number value in checking
+                $querystring = "update checkingAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
+                $conn->query($querystring);
+                
+                
+                $querystring = "select accountNumber from savingsAccount where FK_user = '$user';";
+                $result = $conn->query($querystring);
+                $currentTuple = $result->fetch_row();
+                $accountNumber = $currentTuple[0];
+                
+                //update the number value in savings
+                $querystring = "update savingsAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
+                $conn->query($querystring);
+            
+            
                 header("Location: index.php");
             }
             else {
@@ -57,6 +78,27 @@
             $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', null);";
             $result = $conn->query($querystring);
             if ($result) {
+            
+                $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
+                $result = $conn->query($querystring);
+                $currentTuple = $result->fetch_row();
+                $accountNumber = $currentTuple[0];
+                
+                //update the number value in checking
+                $querystring = "update checkingAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
+                $conn->query($querystring);
+                
+                
+                $querystring = "select accountNumber from savingsAccount where FK_user = '$user';";
+                $result = $conn->query($querystring);
+                $currentTuple = $result->fetch_row();
+                $accountNumber = $currentTuple[0];
+                
+                //update the number value in savings
+                $querystring = "update savingsAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
+                $conn->query($querystring);
+            
+            
                 header("Location: index.php");
             }
             else {

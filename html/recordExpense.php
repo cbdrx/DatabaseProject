@@ -9,11 +9,11 @@
 <script src="js/jquery-1.12.2.min.js"></script>
 
   <?php
+        include 'php/Queries.php';
     function record()
     {
         session_start();
         
-        include 'php/Queries.php';
         $conn =  ConnectToDB();
        
         $amount = $_POST["amount"];
@@ -22,6 +22,14 @@
         $category = $_POST["category"];
         $business = $_POST["business"];
         $accountNumber; 
+        $query = "select balance from checkingAccount where FK_user = '$user';";
+        $res = $conn->query($query)->fetch_row();
+        if($res[0] < $amount)
+        {
+            //$_SESSION["errorMessage"] = "Not Enough Money in Account";
+            echo '<script>alert("Not Enough Money in Account");</script>';
+            return;
+        }
         
         $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
         $result = $conn->query($querystring);
@@ -40,11 +48,14 @@
 
         $conn->query($querystring);
         
+        //update the number value
+        $querystring = "update checkingAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
+        $conn->query($querystring);
+        
         header("Location: index.php");
     }
     if (isset($_POST['submit']))
     {
-        echo 'Here';
         record();
     }
   ?>
@@ -52,7 +63,6 @@
 <title> New Income </title>
 
     <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
             <div class="container">

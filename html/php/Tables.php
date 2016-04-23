@@ -78,6 +78,46 @@ function BuildCategoryTable($username)
     return $table;
 }
 
+function BuildExpensesTable($username)
+{
+    $conn = ConnectToDB();
+        $query = ("select id ID, amount Amount, date Date, FK_category Category, FK_Business Business, FK_accountNumber 'Account #', checkNumber 'Check #'" .
+            " from expenseTransaction " .
+            " where FK_user = '$username' " .
+            " order by date DESC;");
+    $query_result = $conn->query($query) or die( $conn->error );
+    $conn->close();
+        
+    $numFields = $query_result->field_count;
+    $table = "<thead>\n\t<tr>";
+    
+    for($i = 0; $i < $numFields; $i++)
+    {
+        $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
+    }
+    
+    $table .= "<th>Edit</th>";
+    $table .= "</tr></thead>";
+    
+    $table .= "<tbody>";
+    for($i = 0; $i < $query_result->num_rows; $i++)
+    {
+        $table .= "<tr>";
+        $currentTuple = $query_result->fetch_row();
+        for($j = 0; $j < $numFields; $j++)
+        {
+            $table .= "<td>";
+            $table .= $currentTuple[$j];
+            $table .= "</td>\n";
+        }
+        $table .= "<td><a href=editExpense.php?id=" . $currentTuple[0] . ">Edit</a></td>\n";
+        $table .= "</tr>";
+    }
+    $table .= "</tbody>";
+    
+    return $table;
+}
+
 function BuildBusinessTable($username)
 {
     $conn = ConnectToDB();

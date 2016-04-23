@@ -9,11 +9,12 @@
 <script src="js/jquery-1.12.2.min.js"></script>
 
   <?php    
+    session_start();
+
+    include 'php/Queries.php';
+    $conn =  ConnectToDB();
     function edit()
     {
-        session_start();
-        
-        include 'php/Queries.php';
         $conn =  ConnectToDB();
         
         $bisID = $_POST['bisID'];
@@ -21,30 +22,56 @@
         $category = $_POST['catID'];
         
         
-        $querystring = "update business set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user'";
+        $querystring = "update userBusinessCategory set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user'";
 
         $result = $conn->query($querystring);
         
-        header("Location: businesses.php");
-        // if ($result) {
-        //     header("Location: businesses.php");
-        // }
-        // else {
-        //     $_SESSION["errorMessage"] = "Failed creating Income";
-        //     header("Location: businesses.php");
-        // }
+        if ($result) {
+            header("Location: businesses.php");
+        }
+        else {
+            $_SESSION["errorMessage"] = "Failed creating Income";
+            header("Location: businesses.php");
+        }
+    }
+    function delete()
+    {
+        $bisID = $_POST['bisID'];
+        $user = $_SESSION['loggedInUser'];
+        $category = $_POST['catID'];
+        $conn =  ConnectToDB();
+        $querystring = "select * from expenseTransaction where FK_business = '$bisID';";
+        if($conn->query($querystring)->num_rows <= 0)
+        {
+            $querystring = "delete from userBusinessCategory where FK_category = '$category' and FK_business = '$bisID' and FK_user = '$user'";
+            if($conn->query($querystring))
+            {
+                header("Location: businesses.php");
+            }
+            else
+            {
+                $_SESSION["errorMessage"] = "Cannot delete a business referenced elsewhere";
+            }
+        }
+        else
+        {
+        
+        }
     }
     if (isset($_POST['submit']))
     {
         echo 'Here';
         edit();
     }
+    if(isset($_POST['delete']))
+    {
+        delete();
+    }
   ?>
 
-<title> New Income </title>
+<title> Modfying Business </title>
 
     <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
             <div class="container">
@@ -53,13 +80,14 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-8 tableWrapper" style="height: 100%;">
                         <div class="row areaHeader" style="height: 15%;">
-                            <div class="col-sm-6"> <h2> Record New Income </h2> </div>
+                            <div class="col-sm-6"> <h2> Edit Business </h2> </div>
                         </div>
                         <form action="editBusiness.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
                                 <div class="col-sm-12 col-center">
+                                
+                                    <?php echo $_SESSION["errorMessage"] ?>
                                     <?php 
-                                         session_start();
                                          $userName = $_SESSION["loggedInUser"];
                                          $bisID = $_GET['bisID'];
                                          $catID = $_GET['catID'];
@@ -95,6 +123,9 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <input type="submit" value="submit" name="submit"/>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="submit" value="delete" name="delete"/>
                                         </div>
                                     </div>
                                 </div>

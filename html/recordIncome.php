@@ -21,10 +21,20 @@
                     $user = $_SESSION["loggedInUser"];
                     $category = $_POST["category"];
                     
+                    
                     $query_string = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
                     
                     $conn->query($query_string);
                     
+                    $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
+                    $result = $conn->query($querystring);
+                    $currentTuple = $result->fetch_row();
+                    $accountNumber = $currentTuple[0];
+                    
+                    //update the number value
+                    $querystring = "update checkingAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
+                    $conn->query($querystring);
+                                
                     header("Location: index.php");
                 }
                 if (isset($_POST['submit']))

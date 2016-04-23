@@ -17,6 +17,9 @@
                 <a href="recordIncome.php"> New Income </a>
             </li>
             <li>
+                <a href="expenses.php"> Expenses </a>
+            </li> 
+            <li>
                 <a href="recordExpense.php"> New Expense </a>
             </li> 
             <li>
