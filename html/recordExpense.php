@@ -30,11 +30,11 @@
         
         if (isset($_POST["checkNumber"]))
         {
-            $accountNumber = $_POST["checkNumber"];
+            $checkNumber = $_POST["checkNumber"];
             $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', $accountNumber, '$checkNumber');";
         }
         else
-            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', null, '$checkNumber');";
+            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', $accountNumber, null);";
 
 	    echo $querystring;        
 
