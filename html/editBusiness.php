@@ -18,8 +18,7 @@
         
         $bisID = $_POST['bisID'];
         $user = $_SESSION['loggedInUser'];
-        $category = $_POST['category'];
-        $parentID = $_POST['parentID'];
+        $category = $_POST['catID'];
         
         
         $querystring = "update business set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user'";
@@ -72,13 +71,13 @@
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Business:</div>" .
                                                     "<div class=\"col-sm-6\">";
-                                                        echo "<input type=\"text\" name=\"business\" value=\"$bisID\" readonly=\"readonly\">";
+                                                        echo "<input type=\"text\" name=\"bisID\" value=\"$bisID\" readonly=\"readonly\">";
                                          echo        "</div>" . 
                                                 "</div>"; 
                                          echo "<div class=\"row\">" .
                                                     "<div class=\"col-sm-6\">Category:</div>" .
                                                     "<div class=\"col-sm-6\">" .
-                                                        "<select name=\"category\">"; 
+                                                        "<select name=\"catID\">"; 
                                                     $query_result = AllCategoriesForUser($userName);
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
