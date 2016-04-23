@@ -85,7 +85,7 @@
                                                     $result = $conn->query($query);
                                                     for($i = 0; $i < $result->num_rows; $i++)
                                                     {
-                                                        $currentTuple = $query_result->fetch_row();
+                                                        $currentTuple = $result->fetch_row();
                                                         echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
                                                     }
                                                     
