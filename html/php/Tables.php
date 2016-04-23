@@ -112,7 +112,7 @@ function BuildBusinessTable($username)
         }
         $bisID = $currentTuple[0];
         $catID = $currentTuple[1];
-        $table .= "<td><a href=\"editBusiness.php?bisID=$bisID=$bisID&catID=$catID\">Edit</a></td>";
+        $table .= "<td><a href=\"editBusiness.php?bisID=$bisID&catID=$catID\">Edit</a></td>";
         $table .= "</tr>";
     }
     $table .= "</tbody>";

@@ -72,7 +72,7 @@
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Business:</div>" .
                                                     "<div class=\"col-sm-6\">";
-                                                        echo "<input type=\"text\" name=\"business\" value=\"'$bisID'\" readonly=\"readonly\">";
+                                                        echo "<input type=\"text\" name=\"business\" value=\"$bisID\" readonly=\"readonly\">";
                                          echo        "</div>" . 
                                                 "</div>"; 
                                          echo "<div class=\"row\">" .
@@ -88,11 +88,10 @@
                                                         else
                                                             echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
                                                     }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div> 
-                                         $conn->close();                  
+                                         echo   "</select>" .
+                                        "</div>" .
+                                    "</div>"; 
+                                    $conn->close();                  
                                     ?>
                                     <div class="row">
                                         <div class="col-sm-6">
