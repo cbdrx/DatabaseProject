@@ -11,7 +11,7 @@
     <script src="js/jquery-1.12.2.min.js"></script>-->
         
     <title> Home </title>
-
+    <?php unset($_SESSION["loggedInUser"]); ?>
     <?php include 'navbar.php';?>
     
     
@@ -31,7 +31,7 @@
                 <div class="col-sm-10 tableWrapper" id="allUsers">
                     <table id="allUsersTable" class="table table-striped">  
                     <?php
-                        echo BuildTable(AllUsers());
+                        echo BuildSUHomeTable();
                     ?>
                     </table>  
                 </div>

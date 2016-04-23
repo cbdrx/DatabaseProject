@@ -8,17 +8,15 @@ function isUserLoggedIn()
        header("Location: Login.php");
        exit();
        return;
-   };
+   }
 }
 
 function userIsSU()
 {
-   if($_SESSION["su"] == true) return;
+   if($_SESSION["su"] == true) return true;
    else
    {
-       header("Location: Login.php");
-       exit();
-       return;
-   };
+       return false;
+   }
 }
 ?>
