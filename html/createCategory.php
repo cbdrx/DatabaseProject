@@ -19,8 +19,12 @@
         $goal = $_POST["goal"];
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
-        $income = $_POST["income"];
         $parentCategory = $_POST["parentCategory"];
+        
+        $query = "select income from category where id = '$parentCategory';";
+        $res = $conn->query($query);
+        $tup = $res->fetch_row();
+        $income = $tup[0];
         //$query = "select FK_createdBy from Category where id = '$category' and FK_parentID = '$parentCategory'';";
         //$parentCategoryCreator = $conn->query($query);
         //$currentTuple = $parentCategoryCreate->fetch_row();
@@ -99,12 +103,6 @@
                                         <div class="col-sm-6">Goal:</div>
                                         <div class="col-sm-6">
                                             <input type="text" name="goal" required>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-6">Income?:</div>
-                                        <div class="col-sm-6">
-                                            <input type="checkbox" name="income" required>
                                         </div>
                                     </div>
                                     <div class="row">

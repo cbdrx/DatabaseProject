@@ -20,17 +20,26 @@
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
         $business = $_POST["business"];
+        
+        $query = "select * from business where name = '$business';";
+        $res = $conn->query($query);
+        if ($res->num_rows == 0)
+        {
+            $res = "insert into business values ('$business')";
+            $conn->query($query);
+        }
+        
         //$query = "select FK_createdBy from Category where categoryName = '$parentCategory';";
         //$parentCategoryCreator = $conn->query($query);
         
-        $querystring = "insert into UserBusinessClassification (FK_businessName, FK_user, FK_categoryName) " . 
+        $querystring = "insert into UserBusinessClassification (FK_business, FK_user, FK_category) " . 
                         " values('$business', '$user', '$category');";
 
-	echo $querystring;        
+	   echo $querystring;        
 
         $conn->query($querystring);
         
-        header("Location: index.php");
+        header("Location: businesses.php");
     }
     if (isset($_POST['submit']))
     {
@@ -55,37 +64,38 @@
                         </div>
                         <form action="createUserBusinessCategory.php" method="post" class="vparent" style="height: 80%; width: 100%;">
                             <div class="vchild row" style="width: 100%">
-                                <div class="col-sm-12 col-center">
-                                    
-                                    <div class="row">
-                                        <div class="col-sm-6">Category:</div>
-                                        <div class="col-sm-6">
-                                            <input type="text" name="category" required>
-                                        </div>
-                                    </div>
-                                    
+                                <div class="col-sm-12 col-center">  
                                     <div class="row">
                                         <div class="col-sm-6">Business:</div>
                                         <div class="col-sm-6">
-                                            <select name="business" required>
-                                                <?php 
-                                                //
-                                                // Wasn't sure if I should've just deleted all this or if you could use this to write less code.
-                                                //
-                                                //
+                                            <input type="text" name="business" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">Parent Category:</div>
+                                        <div class="col-sm-6">
+                                            <select name="parentCategory" required>
+                                                <option value="No Parent" selected>No Parent</option>;
+                                                <?php        
                                                     session_start();
                                                     $userName = $_SESSION["loggedInUser"];
-                                                    $query_result = AllBusinessesForUser($userName);
-                                                    for($i = 0; $i < $query_result->num_rows; $i++)
+                                                    $conn =  ConnectToDB();
+                                                    
+                                                    $query = ("select id, name from category" .
+                                                                " where FK_createdBy = '$userName'" .
+                                                                " order by name;");
+                                                    $result = $conn->query($query);
+                                                    for($i = 0; $i < $result->num_rows; $i++)
                                                     {
-                                                        $currentTuple = $query_result->fetch_row();
-                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
+                                                        $currentTuple = $result->fetch_row();
+                                                        echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
                                                     }
+                                                    
+                                                    $conn->close();
                                                 ?>
                                             </select>
                                         </div>
                                     </div>
-                                    
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-6">
