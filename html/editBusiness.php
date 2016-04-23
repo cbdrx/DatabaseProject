@@ -62,14 +62,13 @@
                                     <?php 
                                          session_start();
                                          $userName = $_SESSION["loggedInUser"];
-                                         $bisID = $_GET['id'];
+                                         $bisID = $_GET['bidID'];
+                                         $catID = $_GET['catID'];
                                          $conn =  ConnectToDB();
-                                         $querystring = "select FK_business, FK_category, from userBusinessCategory where FK_business = '$bisID' and FK_user = '$userName';";
-                                         $result = $conn->query($querystring);
-                                         $currentTuple = $result->fetch_row();
-                                         
-                                         $bisID = $currentTuple[0]; $catID = $currentTuple[1];
-                                         
+                                         //$querystring = "select FK_business, FK_category, from userBusinessCategory where FK_business = '$bisID' and FK_user = '$userName';";
+                                         //$result = $conn->query($querystring);
+                                         //$currentTuple = $result->fetch_row();
+                                                                                 
                                          echo  "<div class=\"row\"> \n" . 
                                                     "<div class=\"col-sm-6\">Business:</div>" .
                                                     "<div class=\"col-sm-6\">";

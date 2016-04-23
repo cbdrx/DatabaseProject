@@ -9,7 +9,6 @@ function BuildTable($query_result)
     {
         $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
     }
-    $table .= "<th>Edit</th>";
     $table .= "</tr></thead>";
     
     $table .= "<tbody>";
@@ -82,11 +81,12 @@ function BuildCategoryTable($username)
 function BuildBusinessTable($username)
 {
     $conn = ConnectToDB();
-        $query = ("select FK_business Business, FK_category Category " .
-            " from userBusinessCategory " .
+        $query = ("select ucb.FK_business Business, ucb.FK_category CategoryID, category.name Category" .
+            " from userBusinessCategory ucb, category " .
             " where FK_user = '$username' " .
+            " and FK_category = category.id" .
             " order by FK_business, FK_category;");
-    $query_result = $conn->query($query);
+    $query_results = $conn->query($query);
     $conn->close();
         
     $numFields = $query_result->field_count;
@@ -96,7 +96,7 @@ function BuildBusinessTable($username)
     {
         $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
     }
-    
+    $table .= "<th>Edit</th>";
     $table .= "</tr></thead>";
     
     $table .= "<tbody>";
@@ -110,16 +110,9 @@ function BuildBusinessTable($username)
             $table .= $currentTuple[$j];
             $table .= "</td>\n";
         }
-        
-        $conn = ConnectToDB();
-        $catName = $currentTuple[1];
-        $query = ("select id from category where name = '$catname' and FK_user = '$username'");
-        $newResults = $conn->query($query);
-        $newRow = $newResults->fetch_row();
-        $catID = $newRow[0];
-        $conn->close();
-        
-        $table .= "<td><a href=editCategory.php?business=" . $currentTuple[0] . "&category='$catID'" . "&user='$username'" . ">Edit</a></td>\n";
+        $bisID = $currentTuple[0];
+        $catID = $currentTuple[1];
+        $table .= "<td><a href=\"editBusiness.php?bisID=$bidID&catID=$catID>Edit</a></td>";
         $table .= "</tr>";
     }
     $table .= "</tbody>";
