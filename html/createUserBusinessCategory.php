@@ -22,12 +22,11 @@
         $category = $_POST["category"];
         $business = $_POST["business"];
         
-        $query = "select count(*) from business where name = '$business';";
+        $query = "select * from business where name = '$business';";
         $res = $conn->query($query);
-        $tup = $res->fetch_row();
-        if ($tup[0] == 0)
+        if ($res->num_rows <= 0)
         {
-            $res = "insert into business values ('$business');";
+            $query = "insert into business values ('$business');";
             $conn->query($query);
         }
         
@@ -37,7 +36,7 @@
         $querystring = "insert into userBusinessCategory (FK_business, FK_user, FK_category) " . 
                         " values('$business', '$user', '$category');";
 
-	   echo $querystring;        
+	   //echo $querystring;        
 
         $conn->query($querystring);
         
