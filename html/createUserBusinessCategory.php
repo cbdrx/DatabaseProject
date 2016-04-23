@@ -32,7 +32,7 @@
         //$query = "select FK_createdBy from Category where categoryName = '$parentCategory';";
         //$parentCategoryCreator = $conn->query($query);
         
-        $querystring = "insert into UserBusinessClassification (FK_business, FK_user, FK_category) " . 
+        $querystring = "insert into userBusinessCategory (FK_business, FK_user, FK_category) " . 
                         " values('$business', '$user', '$category');";
 
 	   echo $querystring;        
