@@ -29,8 +29,14 @@
                 <a href="deleteAccount.php"> Delete Account </a>
             </li>
             <li>
+                <a href="createCategory.php"> Create Category </a>
+            </li> 
+            <li>
                 <a href="categories.php"> Modify Categories / Goals </a>
             </li>    
+            <li>
+                <a href="createUserBusinessCategory.php"> Create Business </a>
+            </li> 
             <li>
                 <a href="businesses.php"> Modify Businesses </a>
             </li>   
