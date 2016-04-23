@@ -22,17 +22,19 @@
         $category = $_POST["category"];
         $business = $_POST["business"];
         $accountNumber; 
-        $checkNumber = $_POST["checkNumber"]; 
         
         $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
         $result = $conn->query($querystring);
         $currentTuple = $result->fetch_row();
         $accountNumber = $currentTuple[0];
         
-        if ($accountNumber == "")
-                    $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', null, '$checkNumber');";
+        if (isset($_POST["checkNumber"]))
+        {
+            $accountNumber = $_POST["checkNumber"];
+            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', $accountNumber, '$checkNumber');";
+        }
         else
-            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', '$checkNumber');";
+            $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', null, '$checkNumber');";
 
 	    echo $querystring;        
 
