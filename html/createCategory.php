@@ -20,17 +20,22 @@
         $user = $_SESSION["loggedInUser"];
         $category = $_POST["category"];
         $parentCategory = $_POST["parentCategory"];
-        $query = "select FK_createdBy from Category where categoryName = '$parentCategory';";
-        $parentCategoryCreator = $conn->query($query);
-        
-        $querystring = "insert into Category(categoryName, FK_createdBy, goal, default, FK_parentName, FK_parentCreatedBy) " . 
-                        " values('$category', '$user', '$goal', '0', '$parentCategory', '$parentCategoryCreator');";
+        //$query = "select FK_createdBy from Category where id = '$category' and FK_parentID = '$parentCategory'';";
+        //$parentCategoryCreator = $conn->query($query);
+        //$currentTuple = $parentCategoryCreate->fetch_row();
+    
+        if ($parentCategory == "No Parent")
+            $querystring = "insert into Category(categoryName, FK_createdBy, goal, default, FK_parentName, FK_parentCreatedBy) " . 
+                        " values('$category', '$user', '$goal', '0', null, null);";
+        else
+            $querystring = "insert into Category(categoryName, FK_createdBy, goal, default, FK_parentName, FK_parentCreatedBy) " . 
+                        " values('$category', '$user', '$goal', '0', '$parentCategory', '$user');";
 
-	echo $querystring;        
+	    echo $querystring;        
 
         $conn->query($querystring);
         
-        header("Location: index.php");
+        header("Location: categories.php");
     }
     if (isset($_POST['submit']))
     {
@@ -68,19 +73,17 @@
                                         <div class="col-sm-6">Parent Category:</div>
                                         <div class="col-sm-6">
                                             <select name="parentCategory" required>
-                                                <?php 
-                                                //
-                                                // Wasn't sure if I should've just deleted all this or if you could use this to write less code.
-                                                //
-                                                //
-                                                    session_start();
-                                                    $userName = $_SESSION["loggedInUser"];
-                                                    $query_result = AllBusinessesForUser($userName);
-                                                    for($i = 0; $i < $query_result->num_rows; $i++)
+                                                <option value="No Parent" selected>No Parent</option>;
+                                                <?php        
+                                                    $query = ("select id, name from category" .
+                                                                " where FK_createdBy = '$username' and " .
+                                                                " FK_parentID is null order by name;");
+                                                    $result = $conn->query($query);
+                                                    for($i = 0; $i < $result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        echo '<option value="' . $currentTuple[0] . '">' . $currentTuple[0] . ", " . $currentTuple[2] . '</option>';
-                                                    }
+                                                        echo "<option value=\"" . $currentTuple[0] . "\">" . $currentTuple[1] . "</option>";
+                                                     }
                                                 ?>
                                             </select>
                                         </div>
