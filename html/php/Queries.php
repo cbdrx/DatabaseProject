@@ -231,6 +231,42 @@
         $conn->close();
         return $result;
     }
+	
+	function AllIncomeCategoriesAndParentForUser($user)
+	{
+		$conn = ConnectToDB();
+		$query = "
+			select c2.name Parent, c1.id CatID, c1.name CatName 
+				from category c1, category c2 
+				where c1.income = '1' and c2.id = c1.FK_parentID and 
+				c1.FK_CreatedBy = '$user' and c2.FK_createdBy = '$user'
+			union
+			select 'No Parent', c1.id CatID, c1.name CatName 
+				from category c1 
+				where c1.income = '1' and c1.FK_createdBy = 'Tory'
+				and c1.FK_parentID is null;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
+	
+	function AllExpenseCategoriesAndParentForUser($user)
+	{
+		$conn = ConnectToDB();
+		$query = "
+			select c2.name Parent, c1.id CatID, c1.name CatName 
+				from category c1, category c2 
+				where c1.income = '0' and c2.id = c1.FK_parentID and 
+				c1.FK_CreatedBy = '$user' and c2.FK_createdBy = '$user'
+			union
+			select 'No Parent', c1.id CatID, c1.name CatName 
+				from category c1 
+				where c1.income = '0' and c1.FK_createdBy = 'Tory'
+				and c1.FK_parentID is null;";
+		$result = $conn->query($query);
+		$conn->close();
+		return $result;
+	}
     
     
 ?>
