@@ -21,7 +21,7 @@
             </li>';
             
             include 'php/Queries.php'; 
-            $conn = ConnectiToDB();
+            $conn = ConnectToDB();
             $user = $_SESSION["loggedInUser"];
             $query = "select count(*) from savingsAccount where FK_user = '$user';";
             $result = $conn->query($query);
