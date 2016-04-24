@@ -130,7 +130,7 @@
     if(isset($_SESSION["su"]) && $_SESSION["su"] == true && !isset($_SESSION["loggedInUser"]))
     {
         $chosenBar = $suBar;
-        $LogOutString .= 
+        $LogOutString = 
         '<li>
             <a href="superHome.php"> Back To SU Page</a>
         </li>';
@@ -138,7 +138,7 @@
     else if(isset($_SESSION["su"]) && $_SESSION["su"] == true)
     {
         $chosenBar = $normalUserBar;
-        $LogOutString .= 
+        $LogOutString = 
         '<li>
             <a href="superHome.php"> Back To SU Page</a>
         </li>';

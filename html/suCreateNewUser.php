@@ -88,7 +88,7 @@
                 {
                     $checkingbalance = $_POST["checkingaccountbalance"];
                 }
-                $queryString = "insert into user values ('$username', '$password', '$name', 0); ";
+                $queryString = "insert into user values ('$username', '$password', '$name', '$superUser'); ";
                 $conn->query($queryString);
                 $queryString = " insert into checkingAccount values ('$checkingnum', '$checkingbalance', '$username'); ";
                 $conn->query($queryString);
@@ -126,7 +126,6 @@
     }
     if (isset($_POST['submit']))
     {
-        echo 'Here';
         createAccount();
     }
   ?>
@@ -146,7 +145,7 @@
       </div>
 
       <div class="col-sm-8">
-          <form action="createAccount.php" method="post">
+          <form action="suCreateNewUser.php" method="post">
             <div class="roundGrayAccountCreateBox" style="padding-top:15px">
               <div class="row">
                 <div class="col-sm-1"></div>
@@ -186,12 +185,12 @@
 			  <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-4"> Super User?:</div>
-                <div class="col-sm-6"><input type="checkbox" name="superUser"></div>
+                <div class="col-sm-6"><input type="checkbox" value="1" name="superUser"></div>
               </div>
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-6"><input type="submit" value="submit" name="submit"/></div>
-                <div class="col-sm-1"><a href="Login.php"><input type="button" value="Cancel" name="Cancel"/></a></div>
+                <div class="col-sm-1"><a href="superHome.php"><input type="button" value="Cancel" name="Cancel"/></a></div>
               </div>
             </div>
           </form>
