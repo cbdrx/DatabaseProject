@@ -233,54 +233,119 @@ function BuildIncomesTable($username)
     
     return $table;
 }
-/*
+
 function CategoryGoalsTable($username)
 {
     $conn = ConnectToDB();
-    $query = ("select cc.id, cc.name, cc.goal 
-        from category pc, category cc, expenseTransaction e
-        where pc.FK_createdBy = '$username'
-        and cc.FK_createdBy = '$username'
-        and e.FK_user = '$username'
-        and e.FK_category = cc.id,
-        and cc.goal is not null,
-        
-        ");
-    $listOfCategories = $conn->query($query) or die( $conn->error );
-    $conn->close();
-    $sumsArray = array();
-    for($i = 0; $i < $listOfCategories->num_rows; $i++)
+    $query = ("select cc.id, pc.name, cc.name, cc.goal, cc.income
+        from category as cc, category as pc
+        where cc.FK_createdBy = '$username' 
+        and pc.id = cc.FK_parentID
+        and cc.goal is not null
+        UNION
+        select cc.id, 'Top Level Category', cc.name, cc.goal, cc.income
+        from category as cc
+        where cc.FK_createdBy = '$username' 
+        and cc.FK_parentID is null
+        and cc.goal is not null;");
+    $userCategories = $conn->query($query) or die( $conn->error );
+    $categoryArray = [];
+    $sumsArray = [];
+    for($i = 0; $i < $userCategories->num_rows; $i++)
     {
-        $totalForCategory
+        array_push($categoryArray, $userCategories->fetch_row());
     }
+    for($i = 0; $i < count($categoryArray); $i++)
+    {
+        $id = $categoryArray[$i][0];
+        $total = 0;
+        $value;
+        if($categoryArray[$i][4] == 0)
+        {
+            $query = "select SUM(e.amount) 
+                from category as cc, expenseTransaction as e
+                where cc.id = e.FK_category
+                and 
+                (
+                    cc.id = '$id' or
+                    cc.FK_parentID = '$id'
+                );";
+        }
+        else
+        {
+            $query = "select SUM(e.amount) 
+                from category as cc, incomeTransaction as i
+                where cc.id = i.FK_category
+                and 
+                (
+                    cc.id = '$id' or
+                    cc.FK_parentID = '$id'
+                );";
+        }
         
-    $numFields = $query_result->field_count;
+        $value = $conn->query($query)->fetch_row()[0];
+        if($value == NULL)
+        {
+            $value = 0;
+        }
+        array_push($sumsArray, $value);
+    } //now we should have two arrays : One of categories, one of the value spent in it
+    
+    
+        
+    $numFields = 4; //the "Income" field and others will be manually set to strings
     $table = "<thead>\n\t<tr>";
     
-    for($i = 0; $i < $numFields; $i++)
-    {
-        $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
-    }
-    
-    $table .= "<th>Edit</th>";
+    $table .= ("<th> Category ID </th>\n");
+    $table .= ("<th> MetaCategory </th>\n");
+    $table .= ("<th> Category </th>\n");
+    $table .= ("<th> Goal </th>\n");
+    $table .= ("<th> Type </th>\n");
+    $table .= ("<th> Total </th>\n");
+    $table .= ("<th> Goal Met? </th>\n");
+       
     $table .= "</tr></thead>";
     
     $table .= "<tbody>";
-    for($i = 0; $i < $query_result->num_rows; $i++)
+    for($i = 0; $i < count($categoryArray); $i++)
     {
         $table .= "<tr>";
-        $currentTuple = $query_result->fetch_row();
         for($j = 0; $j < $numFields; $j++)
         {
             $table .= "<td>";
-            $table .= $currentTuple[$j];
+            $table .= $categoryArray[$i][$j];
             $table .= "</td>\n";
         }
-        $table .= "<td><a href=editIncome.php?id=" . $currentTuple[0] . ">Edit</a></td>\n";
+        if($categoryArray[$i][4] == 0) //if expense category
+        {
+            $table .= "<td>Expense</td>\n";
+            $table .= "<td>" . $sumsArray[$i] . "</td>";//now output the amount spent
+            if($sumsArray[$i] < $categoryArray[$i][3]) //we want to spend less than our goal
+            {
+                $table .= "<td>MET</td>\n";
+            }
+            else
+            {
+                $table .= "<td>UNMET</td>\n";
+            }
+        }
+        else //if income category
+        {
+            $table .= "<td>Income</td>\n";
+            $table .= "<td>" . $sumsArray[$i] . "</td>";//now output the amount earned
+            if($sumsArray[$i] > $categoryArray[$i][3]) //we want to make more income than our goal
+            {
+                $table .= "<td>MET</td>\n";
+            }
+            else
+            {
+                $table .= "<td>UNMET</td>\n";
+            }
+        }
         $table .= "</tr>";
     }
     $table .= "</tbody>";
     
     return $table;
-}*/
+}
 ?>

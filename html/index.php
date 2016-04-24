@@ -1,6 +1,6 @@
 <?php session_start(); require 'php/CheckUser.php'; isUserLoggedIn(); ?>
 <?php require 'php/Tables.php'; ?>
-<?php require 'php/Queries.php'; ConnectToDB(); ?>
+<?php require 'php/Queries.php'; ?>
 
 <!DOCTYPE html>
     
@@ -19,6 +19,46 @@
     <script src="js/datatables.min.js"></script>
 
     <body>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-6">
+                <h2> Accounts Balances </h2> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-1">
+                <h5>Checking :</h5>
+            </div>
+            <div class="col-sm-1">
+                <?php
+                    $conn = ConnectToDB();
+                    $user = $_SESSION["loggedInUser"];
+                    $query = "select balance from checkingAccount where FK_user = '$user';";
+                    $result = $conn->query($query)->fetch_row()[0];
+                    echo "<h5>$ $result </h5>";
+                    $conn->close();
+                ?>
+            </div>
+            <div class="col-sm-3"> </div>
+                <?php
+                    $conn = ConnectToDB();
+                    $user = $_SESSION["loggedInUser"];
+                    $query = "select balance from savingsAccount where FK_user = '$user';";
+                    $result = $conn->query($query);
+                    if($result->num_rows > 0)
+                    {
+                        $savBal = $result->fetch_row()[0];
+                        echo "
+                            <div class=\"col-sm-1\">
+                                <h5> Savings :</h5>
+                            </div>
+                            <div class=\"col-sm-1\"> <h5>$ $savBal </h5></div>";
+                        $conn->close();
+                    }
+                ?>
+            <div class="col-sm-4"> </div>
+        </div>
         <div class="row" id="incomeTransactions">
             <div class="row"> 
                 <div class="col-sm-1"> </div> 
@@ -69,7 +109,7 @@
                     <div class="col-sm-10 tableWrapper">
                         <table id="categoriesTable" class="table table-striped">  
                         <?php
-                            echo BuildTable(CategoryTableRowsForUser($_SESSION["loggedInUser"]));
+                            echo CategoryGoalsTable($_SESSION["loggedInUser"]);
                         ?>
                         </table>  
                     </div>
