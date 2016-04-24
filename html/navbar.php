@@ -1,4 +1,26 @@
 <?php
+    session_start();
+            include 'php/Queries.php'; 
+            $conn = ConnectToDB();
+            $user = $_SESSION["loggedInUser"];
+            $query = "select * from savingsAccount where FK_user = '$user';";
+            $result = $conn->query($query);
+            // $tup = $result->fetch_row();
+            if ($result->num_rows() > 0)
+            {
+                $savingsString =           
+                '<li>
+                    <a href="transfer.php"> Transfers </a>
+                </li>';
+            }
+            else
+            {
+                $savingsString =           
+                '<li>
+                    <a href="createSavings.php"> Create Savings </a>
+                </li>';
+            }  
+            $conn->close();
 
     echo
     '<head>
@@ -18,32 +40,11 @@
             </li>
             <li>
                 <a href="recordExpense.php"> New Expense </a>
-            </li>';
+            </li>' . 
             
-            session_start();
-            include 'php/Queries.php'; 
-            $conn = ConnectToDB();
-            $user = $_SESSION["loggedInUser"];
-            $query = "select * from savingsAccount where FK_user = '$user';";
-            $result = $conn->query($query);
-            // $tup = $result->fetch_row();
-            if ($result->num_rows() > 0)
-            {
-                echo           
-                '<li>
-                    <a href="transfer.php"> Transfers </a>
-                </li>';
-            }
-            else
-            {
-                echo           
-                '<li>
-                    <a href="createSavings.php"> Create Savings </a>
-                </li>';
-            }  
-            $conn->close();
+            $savingsString .
             
-            echo '
+            '
             <li>
                 <a href="Checks.php"> Checks </a>
             </li>  
