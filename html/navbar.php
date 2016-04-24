@@ -6,7 +6,7 @@
             $query = "select * from savingsAccount where FK_user = '$user';";
             $result = $conn->query($query);
             // $tup = $result->fetch_row();
-            if ($result->num_rows() > 0)
+            if ($result->num_rows > 0)
             {
                 $savingsString =           
                 '<li>
