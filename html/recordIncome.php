@@ -25,6 +25,8 @@
                     
                     $conn->query($query_string);
                     
+                    $conn->close();
+                    
                     header("Location: index.php");
                 }
                 if (isset($_POST['submit']))

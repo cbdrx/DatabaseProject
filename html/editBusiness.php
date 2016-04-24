@@ -25,6 +25,8 @@
 
         $result = $conn->query($querystring);
         
+        $conn->close();
+        
         header("Location: businesses.php");
         // if ($result) {
         //     header("Location: businesses.php");

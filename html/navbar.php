@@ -40,6 +40,7 @@
                     <a href="createSavings.php"> Create Savings </a>
                 </li>';
             }  
+            $conn->close();
             
             echo '
             <li>

@@ -17,6 +17,8 @@
         $query = "insert into savingsAccount(accountNumber, balance, FK_user) " .
                     " values( '$accountNum', '0.00', '$username');";
         $conn->query($query);
+       
+       $conn->close(); 
         
         header("Location: createSavings.php");
     }

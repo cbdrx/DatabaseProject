@@ -40,6 +40,8 @@
 
         $conn->query($querystring);
         
+        $conn->close();
+        
         header("Location: categories.php");
     }
     if (isset($_POST['submit']))

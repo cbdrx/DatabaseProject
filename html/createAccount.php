@@ -118,7 +118,9 @@
         {
             $_SESSION["errorMessage"] = "A required field was not filled out";
         }
-				
+		
+        $conn->close();
+        		
         header("Location: Login.php");
     }
     if (isset($_POST['submit']))

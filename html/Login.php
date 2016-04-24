@@ -21,6 +21,7 @@
         $querystring = "select * from user where CLID = '$username' and password = '$password';";
         $result = $conn->query($querystring);
         $numRows = $result->num_rows;
+        $conn->close();
         if ($numRows > 0) {
             $_SESSION["loggedInUser"] = $username;
             $_SESSION["errorMessage"] = "";

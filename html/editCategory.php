@@ -34,6 +34,8 @@
 
         $result = $conn->query($querystring);
         
+        $conn->close();
+        
         header("Location: categories.php");
         // if ($result) {
         //     header("Location: categories.php");

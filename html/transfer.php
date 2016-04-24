@@ -31,6 +31,7 @@
             
             $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
             $result = $conn->query($querystring);
+            $conn->close();
             if ($result) {
                 header("Location: index.php");
             }
@@ -56,6 +57,7 @@
             
             $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', null);";
             $result = $conn->query($querystring);
+            $conn->close();
             if ($result) {
                 header("Location: index.php");
             }
