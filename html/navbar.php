@@ -18,10 +18,30 @@
             </li>
             <li>
                 <a href="recordExpense.php"> New Expense </a>
-            </li> 
-            <li>
-                <a href="transfer.php"> Transfers </a>
-            </li>  
+            </li>';
+            
+            include 'php/Queries.php'; 
+            $conn = ConnectiToDB();
+            $user = $_SESSION["loggedInUser"];
+            $query = "select count(*) from savingsAccount where FK_user = '$user';";
+            $result = $conn->query($query);
+            $tup = $result->fetch_row();
+            if ($tup[0] > 0)
+            {
+                echo           
+                '<li>
+                    <a href="transfer.php"> Transfers </a>
+                </li>';
+            }
+            else
+            {
+                echo           
+                '<li>
+                    <a href="createSavings.php"> Create Savings </a>
+                </li>';
+            }  
+            
+            echo '
             <li>
                 <a href="Checks.php"> Checks </a>
             </li>  
