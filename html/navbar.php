@@ -20,6 +20,7 @@
                 <a href="recordExpense.php"> New Expense </a>
             </li>';
             
+            session_start();
             include 'php/Queries.php'; 
             $conn = ConnectToDB();
             $user = $_SESSION["loggedInUser"];
