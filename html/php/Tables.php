@@ -194,4 +194,93 @@ function BuildSUHomeTable()
     return $table;
 }
 
+function BuildIncomesTable($username)
+{
+    $conn = ConnectToDB();
+        $query = ("select id ID, amount Amount, date Date, FK_category Category " .
+            " from incomeTransaction " .
+            " where FK_user = '$username' " .
+            " order by date DESC;");
+    $query_result = $conn->query($query) or die( $conn->error );
+    $conn->close();
+        
+    $numFields = $query_result->field_count;
+    $table = "<thead>\n\t<tr>";
+    
+    for($i = 0; $i < $numFields; $i++)
+    {
+        $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
+    }
+    
+    $table .= "<th>Edit</th>";
+    $table .= "</tr></thead>";
+    
+    $table .= "<tbody>";
+    for($i = 0; $i < $query_result->num_rows; $i++)
+    {
+        $table .= "<tr>";
+        $currentTuple = $query_result->fetch_row();
+        for($j = 0; $j < $numFields; $j++)
+        {
+            $table .= "<td>";
+            $table .= $currentTuple[$j];
+            $table .= "</td>\n";
+        }
+        $table .= "<td><a href=editIncome.php?id=" . $currentTuple[0] . ">Edit</a></td>\n";
+        $table .= "</tr>";
+    }
+    $table .= "</tbody>";
+    
+    return $table;
+}
+/*
+function CategoryGoalsTable($username)
+{
+    $conn = ConnectToDB();
+    $query = ("select cc.id, cc.name, cc.goal 
+        from category pc, category cc, expenseTransaction e
+        where pc.FK_createdBy = '$username'
+        and cc.FK_createdBy = '$username'
+        and e.FK_user = '$username'
+        and e.FK_category = cc.id,
+        and cc.goal is not null,
+        
+        ");
+    $listOfCategories = $conn->query($query) or die( $conn->error );
+    $conn->close();
+    $sumsArray = array();
+    for($i = 0; $i < $listOfCategories->num_rows; $i++)
+    {
+        $totalForCategory
+    }
+        
+    $numFields = $query_result->field_count;
+    $table = "<thead>\n\t<tr>";
+    
+    for($i = 0; $i < $numFields; $i++)
+    {
+        $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
+    }
+    
+    $table .= "<th>Edit</th>";
+    $table .= "</tr></thead>";
+    
+    $table .= "<tbody>";
+    for($i = 0; $i < $query_result->num_rows; $i++)
+    {
+        $table .= "<tr>";
+        $currentTuple = $query_result->fetch_row();
+        for($j = 0; $j < $numFields; $j++)
+        {
+            $table .= "<td>";
+            $table .= $currentTuple[$j];
+            $table .= "</td>\n";
+        }
+        $table .= "<td><a href=editIncome.php?id=" . $currentTuple[0] . ">Edit</a></td>\n";
+        $table .= "</tr>";
+    }
+    $table .= "</tbody>";
+    
+    return $table;
+}*/
 ?>

@@ -16,8 +16,16 @@
         if(DeleteAccount($username))
         {
             $_SESSION["errorMessage"] = "Successfully Deleted Account";
-            session_destroy();
-            header("Location: Login.php");
+            if(isset($_SESSION["su"]) && $_SESSION["su"] == true)
+            {
+                unset($_SESSION["loggedInUser"]);
+                header("Location: superHome.php");  
+            }
+            else
+            {
+                session_destroy();
+                header("Location: Login.php");
+            }
         }
         else
         {

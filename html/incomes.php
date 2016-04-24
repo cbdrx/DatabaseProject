@@ -10,9 +10,8 @@
     <link href="css/base.css" type="text/css" rel="stylesheet">
     <script src="js/jquery-1.12.2.min.js"></script>-->
         
-    <title> Expenses </title>
+    <title> Incomes </title>
 
-    
     <?php include 'navbar.php';
         unset($_SESSION["errorMessage"]);?>
     
@@ -21,19 +20,19 @@
     <script src="js/datatables.min.js"></script>
 
     <body>
-        <div class="row" id="expenses">
+        <div class="row" id="incomes">
             <div class="row"> 
                 <div class="col-sm-1"> </div> 
                 <div class="col-sm-6"> 
-                    <h2> Expenses </h2> 
+                    <h2> Incomes </h2> 
                 </div>
             </div>
             <div class="row">
                 <div class="col-sm-1"> </div>
-                <div class="col-sm-10 tableWrapper" id="allExpenses">
-                    <table id="allExpensesTable" class="table table-striped">  
+                <div class="col-sm-10 tableWrapper" id="allIncomes">
+                    <table id="allIncomesTable" class="table table-striped">  
                     <?php
-                        echo BuildExpensesTable($_SESSION["loggedInUser"]);
+                        echo BuildIncomesTable($_SESSION["loggedInUser"]);
                     ?>
                     </table>  
                 </div>
@@ -44,7 +43,7 @@
     
     <script>
         $(document).ready(function () {
-            $('#allExpensesTable').dataTable();
+            $('#allIncomesTable').dataTable();
         });
     </script>
 </html>

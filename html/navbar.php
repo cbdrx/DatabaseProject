@@ -34,6 +34,9 @@
         </a>
         <div class="nav navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
+            <li>
+                <a href="incomes.php"> Incomes </a>
+            </li> 
             <li> 
                 <a href="recordIncome.php"> New Income </a>
             </li>
