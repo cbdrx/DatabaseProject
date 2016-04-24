@@ -21,6 +21,28 @@
     
     
     
+    
+    
+    
+    // $tup = $result->fetch_row();
+    if ($savings->num_rows > 0)
+    {
+        $savingsString =           
+        '<li>
+            <a href="transfer.php"> Transfers </a>
+        </li>';
+    }
+    else
+    {
+        $savingsString =           
+        '<li>
+            <a href="createSavings.php"> Create Savings </a>
+        </li>';
+    }  
+    
+    
+    
+    
     $normalUserBar = '<head>
         <link href="css/bootstrap.css" type="text/css" rel="stylesheet">
         <link href="css/base.css" type="text/css" rel="stylesheet">
@@ -103,26 +125,6 @@
              ';
     
     
-    
-    
-    
-    
-    
-    // $tup = $result->fetch_row();
-    if ($savings->num_rows > 0)
-    {
-        $savingsString =           
-        '<li>
-            <a href="transfer.php"> Transfers </a>
-        </li>';
-    }
-    else
-    {
-        $savingsString =           
-        '<li>
-            <a href="createSavings.php"> Create Savings </a>
-        </li>';
-    }  
     $LogOutString;
     $chosenBar;
     if(isset($_SESSION["su"]) && $_SESSION["su"] == true && !isset($_SESSION["loggedInUser"]))

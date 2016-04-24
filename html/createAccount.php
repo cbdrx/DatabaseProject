@@ -17,8 +17,8 @@
         session_start();
         
         $conn =  ConnectToDB();
-        $allNecessaryFieldsSet = isset($_POST["clid"]) && isset($_POST["name"]) && isset($_POST["password"])  
-            && isset($_POST["checkingaccountnumber"]);
+        $allNecessaryFieldsSet = !empty($_POST["clid"]) && !empty($_POST["name"]) && !empty($_POST["password"])  
+            && !empty($_POST["checkingaccountnumber"]);
         
 		//We need to check if the necessary primary keys are already in use
 						
@@ -35,7 +35,7 @@
             $userNonExist = ($conn->query($queryString)->num_rows == 0);
             $queryString = "select * from checkingAccount where accountNumber = '$checkingnum';";
             $checkingNonExist = ($conn->query($queryString)->num_rows == 0);
-            if(isset($_POST["savingsaccountnumber"]))
+            if(!empty($_POST["savingsaccountnumber"]))
             {
                 $savingsnum = $_POST["savingsaccountnumber"];
                 $queryString = "select * from savingsAccount where accountNumber = '$savingsnum';";
@@ -44,12 +44,12 @@
                 {
                     $checkingbalance = 0.0;
                     $savingsbalance = 0.0;
-                    if(isset($_POST["checkingaccountbalance"]) && is_numeric($_POST["checkingAccountbalance"]))
+                    if(!empty($_POST["checkingaccountbalance"]))
                     {
                         $checkingbalance = $_POST["checkingaccountbalance"];
                     }
                     
-                    if(isset($_POST["savingsaccountbalance"]) && is_numeric($_POST["savingsAccountbalance"]))
+                    if(!empty($_POST["savingsaccountbalance"]))
                     {
                         $savingsbalance = $_POST["savingsaccountbalance"];
                     }
@@ -84,7 +84,7 @@
             else if($userNonExist && $checkingNonExist)
             {
                 $checkingbalance = 0.0;
-                if(isset($_POST["checkingaccountbalance"]) && is_numeric($_POST["checkingAccountbalance"]))
+                if(!empty($_POST["checkingaccountbalance"]) )
                 {
                     $checkingbalance = $_POST["checkingaccountbalance"];
                 }
@@ -185,6 +185,7 @@
               <div class="row">
                 <div class="col-sm-1"></div>
                 <div class="col-sm-6"><input type="submit" value="submit" name="submit"/></div>
+                <div class="col-sm-1"><a href="Login.php"><input type="button" value="Cancel" name="Cancel"/></a></div>
               </div>
             </div>
           </form>

@@ -31,7 +31,6 @@
             
             $querystring = "insert into incomeTransaction(amount, date, FK_user, FK_category) values('$amount', '$date', '$user', '$category');";
             $result = $conn->query($querystring);
-            $conn->close();
             if ($result) {
             
                 $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
@@ -57,7 +56,7 @@
                 header("Location: index.php");
             }
             else {
-                echo "Transfer failed.";
+                echo "<script> alert(\"Transfer failed.\");</script>";
             }
         }
         else  
@@ -78,7 +77,6 @@
             
             $querystring = "insert into expenseTransaction(amount, date, FK_user, FK_category, FK_business, FK_accountNumber, checkNumber) values('$amount', '$date', '$user', '$category', '$business', '$accountNumber', null);";
             $result = $conn->query($querystring);
-            $conn->close();
             if ($result) {
             
                 $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
@@ -104,7 +102,7 @@
                 header("Location: index.php");
             }
             else {
-                echo "Transfer failed.";
+                echo "<script> alert(\"Transfer failed.\");</script>";
             }
         }
     }

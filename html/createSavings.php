@@ -12,19 +12,21 @@
     include 'php/Queries.php';
     function createSavingsAccount()
     {
+        $conn = ConnectToDB();
         $username = $_SESSION["loggedInUser"];
-        $accountNum = $_PSOT["accountNum"]
+        $accountNum = $_POST["accountNum"];
+        $balance = $_POST["balance"];
+        
         $query = "insert into savingsAccount(accountNumber, balance, FK_user) " .
-                    " values( '$accountNum', '0.00', '$username');";
+                    " values( '$accountNum', '$balance', '$username');";
         $conn->query($query);
        
        $conn->close(); 
         
-        header("Location: createSavings.php");
+        header("Location: index.php");
     }
     if (isset($_POST['create']))
     {
-        echo 'Here';
         createSavingsAccount();
     }
   ?>
@@ -53,6 +55,12 @@
                         <div class="col-sm-6">Saving Account Number:</div>
                         <div class="col-sm-6">
                             <input type="text" name="accountNum" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">Saving Account Balance:</div>
+                        <div class="col-sm-6">
+                            <input type="text" name="balance" required>
                         </div>
                     </div>
                     <!-- Create Button -->
