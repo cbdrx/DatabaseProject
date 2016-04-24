@@ -24,10 +24,10 @@
             include 'php/Queries.php'; 
             $conn = ConnectToDB();
             $user = $_SESSION["loggedInUser"];
-            $query = "select count(*) from savingsAccount where FK_user = '$user';";
+            $query = "select * from savingsAccount where FK_user = '$user';";
             $result = $conn->query($query);
-            $tup = $result->fetch_row();
-            if ($tup[0] > 0)
+            // $tup = $result->fetch_row();
+            if ($result->num_rows() > 0)
             {
                 echo           
                 '<li>
