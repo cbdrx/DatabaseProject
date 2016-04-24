@@ -10,7 +10,7 @@
     <link href="css/base.css" type="text/css" rel="stylesheet">
     <script src="js/jquery-1.12.2.min.js"></script>-->
         
-    <title> Categories </title>
+    <title> Businesses </title>
 
     <?php include 'navbar.php';?>
     

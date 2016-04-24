@@ -118,48 +118,6 @@ function BuildExpensesTable($username)
     return $table;
 }
 
-function BuildBusinessTable($username)
-{
-    $conn = ConnectToDB();
-        $query = ("select ucb.FK_business Business, ucb.FK_category CategoryID, category.name Category" .
-            " from userBusinessCategory ucb, category " .
-            " where FK_user = '$username' " .
-            " and FK_category = category.id" .
-            " order by FK_business, FK_category;");
-    $query_result = $conn->query($query);
-    $conn->close();
-        
-    $numFields = $query_result->field_count;
-    $table = "<thead>\n\t<tr>";
-    
-    for($i = 0; $i < $numFields; $i++)
-    {
-        $table .= ("<th> ". ($query_result->fetch_field_direct($i)->name) . " </th>\n");
-    }
-    $table .= "<th>Edit</th>";
-    $table .= "</tr></thead>";
-    
-    $table .= "<tbody>";
-    for($i = 0; $i < $query_result->num_rows; $i++)
-    {
-        $table .= "<tr>";
-        $currentTuple = $query_result->fetch_row();
-        for($j = 0; $j < $numFields; $j++)
-        {
-            $table .= "<td>";
-            $table .= $currentTuple[$j];
-            $table .= "</td>\n";
-        }
-        $bisID = $currentTuple[0];
-        $catID = $currentTuple[1];
-        $table .= "<td><a href=\"editBusiness.php?bisID=$bisID&catID=$catID\">Edit</a></td>";
-        $table .= "</tr>";
-    }
-    $table .= "</tbody>";
-    
-    return $table;
-}
-
 function BuildSUHomeTable()
 {
     $query_result = AllUsers();

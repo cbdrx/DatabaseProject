@@ -76,7 +76,7 @@
                 echo "<script> alert(\"Transfer failed.\");</script>";
             }
         }
-        else if ($type = "toSavings" && $checkingBalance >= $amount)
+        else if ($type == "toSavings" && $checkingBalance >= $amount)
         {  
             // get cat id for Mis Expense
             $querystring = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Expense';";
@@ -122,6 +122,9 @@
             else {
                 echo "<script> alert(\"Transfer failed.\");</script>";
             }
+        }
+        else {
+            echo "<script> alert(\"Transfer failed : Amount too much.\");</script>";
         }
     }
     if (isset($_POST['submit']))

@@ -227,7 +227,7 @@
     function AllUsers()
     {
         $conn = ConnectToDB();
-        $result = $conn->query("select * from user");
+        $result = $conn->query("select * from user order by CLID desc;");
         $conn->close();
         return $result;
     }
