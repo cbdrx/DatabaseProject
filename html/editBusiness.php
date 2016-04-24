@@ -22,7 +22,7 @@
         $category = $_POST['catID'];
         
         
-        $querystring = "update userBusinessCategory set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user'";
+        $querystring = "update userBusinessCategory set FK_category = '$category' where FK_business = '$bisID' and FK_user = '$user';";
 
         $result = $conn->query($querystring);
         
@@ -40,22 +40,27 @@
         $user = $_SESSION['loggedInUser'];
         $category = $_POST['catID'];
         $conn =  ConnectToDB();
-        $querystring = "select * from expenseTransaction where FK_business = '$bisID';";
+        $querystring = "select * from expenseTransaction where FK_business = '$bisID' and FK_user = '$user';";
         if($conn->query($querystring)->num_rows <= 0)
         {
-            $querystring = "delete from userBusinessCategory where FK_category = '$category' and FK_business = '$bisID' and FK_user = '$user'";
+            $querystring = "delete from userBusinessCategory where FK_category = '$category' and FK_business = '$bisID' and FK_user = '$user';";
             if($conn->query($querystring))
             {
                 header("Location: businesses.php");
+                exit();
             }
             else
             {
-                $_SESSION["errorMessage"] = "Cannot delete a business referenced elsewhere";
+                $_SESSION["errorMessage"] = "Error Deleting Business";
+                header("Location: editBusiness.php?bisID=$bisID&catID='$category'");
+                exit();
             }
         }
         else
         {
-        
+            $_SESSION["errorMessage"] = "Cannot delete a business referenced elsewhere";
+            header("Location: editBusiness.php?bisID=$bisID&catID='$category'");
+            exit();
         }
         $conn->close();
         

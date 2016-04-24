@@ -273,7 +273,7 @@ function CategoryGoalsTable($username)
         }
         else
         {
-            $query = "select SUM(e.amount) 
+            $query = "select SUM(i.amount) 
                 from category as cc, incomeTransaction as i
                 where cc.id = i.FK_category
                 and 

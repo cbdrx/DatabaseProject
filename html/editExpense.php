@@ -71,7 +71,7 @@
         $querystring .= "where id = '$id';";
         
 
-        $result = $conn->query($querystring) or die($conn->error());
+        $result = $conn->query($querystring) or die($conn->error);
         
         if ($result) {
             header("Location: expenses.php");
@@ -175,13 +175,13 @@
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[0] == $catID)
+                                                        if ($currentTuple[1] == $catID)
                                                             echo '<option value="' . $currentTuple[1] . '" selected>' . $currentTuple[0] . " - " . $currentTuple[2] . '</option>';
                                                         else
                                                             echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[0] . " - " . $currentTuple[2] . '</option>';
                                                     }
                                          echo   "</select>" .
-                                        "</div>" .
+                                        "</div></div>" .
                                         "<div class=\"row\">" .
                                                     "<div class=\"col-sm-6\">Business:</div>" .
                                                     "<div class=\"col-sm-6\">" .

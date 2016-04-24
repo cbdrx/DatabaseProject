@@ -21,7 +21,23 @@
         $type = $_POST["type"];
         $date = date("Y/m/d");
         
-        if ($type == "toChecking")      
+        $query = "select * from userBusinessCategory where FK_user = '$user' and FK_business = 'Checking To Savings';";
+        if($conn->query($query)->num_rows <= 0)
+        {
+            $query = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Expense'";
+            $id = $conn->query($query)->fetch_row()[0];
+            $query = "insert into userBusinessCategory (FK_business, FK_user, FK_category) values('Checking To Savings', '$user', '$id');";
+            $conn->query($query);
+        }
+        
+        
+        $query = "select balance from checkingAccount where FK_user = '$user';";
+        $checkingBalance = $conn->query($query)->fetch_row()[0];
+        
+        $query = "select balance from savingsAccount where FK_user = '$user';";
+        $savingsBalance = $conn->query($query)->fetch_row()[0];
+        
+        if ($type == "toChecking" && $savingsBalance >= $amount)      
         {  
             // get cat for mis income
             $querystring = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Income';";
@@ -36,30 +52,31 @@
                 $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
                 $result = $conn->query($querystring);
                 $currentTuple = $result->fetch_row();
-                $accountNumber = $currentTuple[0];
+                $caccountNumber = $currentTuple[0];
                 
                 //update the number value in checking
-                $querystring = "update checkingAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
+                $querystring = "update checkingAccount set balance = balance + '$amount' where accountNumber = '$caccountNumber';";
                 $conn->query($querystring);
                 
                 
                 $querystring = "select accountNumber from savingsAccount where FK_user = '$user';";
                 $result = $conn->query($querystring);
                 $currentTuple = $result->fetch_row();
-                $accountNumber = $currentTuple[0];
+                $saccountNumber = $currentTuple[0];
                 
                 //update the number value in savings
-                $querystring = "update savingsAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
+                $querystring = "update savingsAccount set balance = balance - '$amount' where accountNumber = '$saccountNumber';";
                 $conn->query($querystring);
             
             
                 header("Location: index.php");
+                exit();
             }
             else {
                 echo "<script> alert(\"Transfer failed.\");</script>";
             }
         }
-        else  
+        else if ($type = "toSavings" && $checkingBalance >= $amount)
         {  
             // get cat id for Mis Expense
             $querystring = "select id from category where FK_createdBy = '$user' and name = 'Miscellaneous Expense';";
@@ -71,7 +88,7 @@
             $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
             $result = $conn->query($querystring);
             $currentTuple = $result->fetch_row();
-            $accountNumber = $currentTuple[0]; 
+            $caccountNumber = $currentTuple[0]; 
             
             $business = "Checking To Savings";
             
@@ -82,24 +99,25 @@
                 $querystring = "select accountNumber from checkingAccount where FK_user = '$user';";
                 $result = $conn->query($querystring);
                 $currentTuple = $result->fetch_row();
-                $accountNumber = $currentTuple[0];
+                $caccountNumber = $currentTuple[0];
                 
                 //update the number value in checking
-                $querystring = "update checkingAccount set balance = balance - '$amount' where accountNumber = '$accountNumber';";
+                $querystring = "update checkingAccount set balance = balance - '$amount' where accountNumber = '$caccountNumber';";
                 $conn->query($querystring);
                 
                 
                 $querystring = "select accountNumber from savingsAccount where FK_user = '$user';";
                 $result = $conn->query($querystring);
                 $currentTuple = $result->fetch_row();
-                $accountNumber = $currentTuple[0];
+                $saccountNumber = $currentTuple[0];
                 
                 //update the number value in savings
-                $querystring = "update savingsAccount set balance = balance + '$amount' where accountNumber = '$accountNumber';";
+                $querystring = "update savingsAccount set balance = balance + '$amount' where accountNumber = '$saccountNumber';";
                 $conn->query($querystring);
             
             
                 header("Location: index.php");
+                exit();
             }
             else {
                 echo "<script> alert(\"Transfer failed.\");</script>";
@@ -108,7 +126,6 @@
     }
     if (isset($_POST['submit']))
     {
-        echo 'Here';
         transfer();
     }
   ?>
@@ -116,7 +133,6 @@
 <title> Transfer </title>
 
     <?php include 'navbar.php';?>
-    <?php include 'php/Queries.php'; ConnectToDB(); ?>
 
         <body>
             <div class="container">

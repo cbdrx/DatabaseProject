@@ -171,7 +171,7 @@
                                                     for($i = 0; $i < $query_result->num_rows; $i++)
                                                     {
                                                         $currentTuple = $query_result->fetch_row();
-                                                        if ($currentTuple[0] == $catID)
+                                                        if ($currentTuple[1] == $catID)
                                                             echo '<option value="' . $currentTuple[1] . '" selected>' . $currentTuple[0] . ' - ' . $currentTuple[2] . '</option>';
                                                         else
                                                             echo '<option value="' . $currentTuple[1] . '">' . $currentTuple[0] . ' - ' . $currentTuple[2] . '</option>';
